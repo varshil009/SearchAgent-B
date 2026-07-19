@@ -1,0 +1,5 @@
+{
+    "tool_required" : true,
+    "tool" : "tool name according to tools schema",
+    "tool_query" : "add your desired query here"
+}

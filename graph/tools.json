@@ -1,0 +1,8 @@
+{
+    "tool_list" : [
+        {
+            "name" : "websearch",
+            "description" : "allows to search on internet to get most relevant/recent results"
+        }
+    ]
+}
