@@ -57,14 +57,15 @@ class NodeLLM:
                 return {
                     "messages": [AIMessage(content=response)],
                     "search_required": [False],
-                    "final_response": response
+                    "final_response": [response]
                 }
 
         # Tool call
         if parsed_response.get("tool_required"):
             return {
                 "search_required": [True],
-                "search_queries": [parsed_response["tool_query"]]
+                "search_queries": [parsed_response["tool_query"]],
+                "status_messages": ["searching web"]
             }
 
         # Valid JSON/dict, but no tool required
@@ -95,7 +96,8 @@ class NodeLLM:
             if r["tool_required"]:
                 return {
                     "search_required": [True],
-                    "search_queries": [r["tool_query"]]
+                    "search_queries": [r["tool_query"]],
+                    "status_messages": ["searching web"]
                 }
 
         except (ValueError, SyntaxError, json.JSONDecodeError):
@@ -105,5 +107,5 @@ class NodeLLM:
         return {
             "messages": [AIMessage(content=response)],
             "search_required": [False],
-            "final_response": response
+            "final_response": [response]
         }

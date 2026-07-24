@@ -26,7 +26,7 @@ class NodeFinal:
         response = self.llm.generate_response(state["messages"], self.node_prompt) 
         return {
                 "messages" : [AIMessage(content = response)],
-                "final_response" : response,
+                "final_response" : [response],
                 "search_required": [False]
                 }
     

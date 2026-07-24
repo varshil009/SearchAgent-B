@@ -8,3 +8,6 @@ class AgentLoop:
     def run(self, state:AgentState):
         final_results = self.graph.invoke(state)
         return final_results
+
+    def stream(self, state: AgentState):
+        yield from self.graph.stream(state, stream_mode="updates")

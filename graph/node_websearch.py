@@ -12,5 +12,6 @@ class NodeExaWeb:
 
         return { 
                 "search_results" : results, 
-                "search_required" : [False]
+                "search_required" : [False],
+                "status_messages": ["generating"]
                 }
