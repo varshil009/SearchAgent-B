@@ -23,8 +23,6 @@ class NodeFinal:
                             {self.tool_results}
                             """
 
-        
-
         response = self.llm.generate_response(state["messages"], self.node_prompt) 
         return {
                 "messages" : [AIMessage(content = response)],
