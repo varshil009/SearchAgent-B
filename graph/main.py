@@ -11,7 +11,7 @@ class Graph:
         self.final_node = NodeFinal()
 
     def route_after_llm(self, state: AgentState):
-        if state["search_required"]:
+        if state["search_required"][-1]:
             return "websearch"
         return "direct"
 

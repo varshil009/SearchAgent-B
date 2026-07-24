@@ -27,6 +27,6 @@ class NodeFinal:
         return {
                 "messages" : [AIMessage(content = response)],
                 "final_response" : response,
-                "search_required": False
+                "search_required": [False]
                 }
     

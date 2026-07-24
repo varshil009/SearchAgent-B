@@ -7,9 +7,10 @@ class NodeExaWeb:
         self.client = ExaClient()
     
     def search(self, state:AgentState):
-        results = self.client.search(state["search_query"])
+        ## for now to limit token exceeding, cap to 3 results only
+        results = self.client.search(state["search_queries"][-1])[:3]
+
         return { 
                 "search_results" : results, 
-                "search_required" : False,
-                "search_query" : ""
+                "search_required" : [False]
                 }

@@ -15,4 +15,5 @@ class ExaClient:
 			"summary" : { "query" : "key findings and conclusions" }
 			}
 		)
+		print()
 		return [vars(r) for r in result.results]
