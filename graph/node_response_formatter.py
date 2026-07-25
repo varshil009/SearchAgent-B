@@ -19,6 +19,8 @@ class NodeFinal:
                             This call contains tool call results;
                             And if no tool results are here then consider, to 
                             generate answer tool call is not required.
+                            If a tool result contains an error, say that current
+                            information could not be verified; do not invent web results.
                             Here are tool results :
                             {self.tool_results}
                             """

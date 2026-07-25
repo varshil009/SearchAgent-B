@@ -15,5 +15,5 @@ class ExaClient:
 			"summary" : { "query" : "key findings and conclusions" }
 			}
 		)
-		print()
-		return [vars(r) for r in result.results]
+		return  [{k: v for k, v in vars(r).items() if k != "text"}
+    				for r in result.results]

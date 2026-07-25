@@ -38,9 +38,15 @@ class NodeLLM:
         self.llm = GroqClient()
 
     def generate(self, state: AgentState):
+        prompt_with_memory = f"""
+            {self.node_prompt}
+
+            Conversation memory from earlier API calls:
+            {state.get("convo_memory") or "No saved memory yet."}
+        """
         response = self.llm.generate_response(
             state["messages"],
-            self.node_prompt
+            prompt_with_memory
         )
 
         # First try proper JSON
@@ -54,11 +60,7 @@ class NodeLLM:
 
             # It's neither JSON nor a Python dict → normal LLM answer
             except (ValueError, SyntaxError):
-                return {
-                    "messages": [AIMessage(content=response)],
-                    "search_required": [False],
-                    "final_response": [response]
-                }
+                return self.extract_json_and_return(response)
 
         # Tool call
         if parsed_response.get("tool_required"):
@@ -93,7 +95,7 @@ class NodeLLM:
             except json.JSONDecodeError:
                 r = ast.literal_eval(json_string)
 
-            if r["tool_required"]:
+            if r.get("tool_required"):
                 return {
                     "search_required": [True],
                     "search_queries": [r["tool_query"]],

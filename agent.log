@@ -1,0 +1,235 @@
+2026-07-24 20:58:54,201 INFO research_agent: File logging configured successfully.
+2026-07-24 20:59:35,437 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 20:59:35,440 INFO research_agent: WebSocket query received: lest go
+2026-07-24 20:59:36,590 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 20:59:36,590 INFO research_agent: Memory updater started. Previous memory: No previous memory.
+2026-07-24 20:59:36,891 INFO research_agent: Memory updater finished. New memory: 
+2026-07-24 20:59:36,892 INFO research_agent: Conversation memory saved: 
+2026-07-24 20:59:36,892 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-24 21:00:05,298 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 21:00:05,300 INFO research_agent: WebSocket query received: who is mk gandhi
+2026-07-24 21:00:06,865 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 21:00:23,896 INFO research_agent: Graph update received: ['NodeExaWeb']
+2026-07-24 21:00:26,512 INFO research_agent: Graph update received: ['NodeFinal']
+2026-07-24 21:00:26,513 INFO research_agent: Memory updater started. Previous memory: No previous memory.
+2026-07-24 21:00:27,116 INFO research_agent: Memory updater finished. New memory: 
+2026-07-24 21:00:27,116 INFO research_agent: Conversation memory saved: 
+2026-07-24 21:00:27,117 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-24 21:04:18,194 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 21:04:18,204 INFO research_agent: WebSocket query received: Hello, can you tell me
+2026-07-24 21:04:19,214 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 21:04:19,215 INFO research_agent: Memory updater started. Previous memory: No previous memory.
+2026-07-24 21:04:19,413 WARNING research_agent: Memory LLM returned an empty response; using fallback memory.
+2026-07-24 21:04:19,413 INFO research_agent: Memory updater finished. New memory: 'Latest user request: Hello, can you tell me\nLatest assistant response: You started saying "Hello, can you tell me", but it looks like you didn\'t finish your question. Please go ahead and complete your thought, and I\'ll do my best to help. What would you like to know?'
+2026-07-24 21:04:19,414 INFO research_agent: Conversation memory saved: Latest user request: Hello, can you tell me
+Latest assistant response: You started saying "Hello, can you tell me", but it looks like you didn't finish your question. Please go ahead and complete your thought, and I'll do my best to help. What would you like to know?
+2026-07-24 21:04:19,415 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-24 21:04:32,920 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 21:04:32,922 INFO research_agent: WebSocket query received: something
+2026-07-24 21:04:33,375 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 21:04:33,376 INFO research_agent: Memory updater started. Previous memory: Latest user request: Hello, can you tell me
+Latest assistant response: You started saying "Hello, can you tell me", but it looks like you didn't finish your question. Please go ahead and complete your thought, and I'll do my best to help. What would you like to know?
+2026-07-24 21:04:33,707 WARNING research_agent: Memory LLM returned an empty response; using fallback memory.
+2026-07-24 21:04:33,707 INFO research_agent: Memory updater finished. New memory: 'Latest user request: Hello, can you tell me\nLatest assistant response: You started saying "Hello, can you tell me", but it looks like you didn\'t finish your question. Please go ahead and complete your thought, and I\'ll do my best to help. What would you like to know?\nLatest user request: something\nLatest assistant response: It seems like you started to ask something, but it\'s not clear what you\'re looking for. Could you please provide more context or clarify your question? I\'ll do my best to help with whatever is on your mind.'
+2026-07-24 21:04:33,708 INFO research_agent: Conversation memory saved: Latest user request: Hello, can you tell me
+Latest assistant response: You started saying "Hello, can you tell me", but it looks like you didn't finish your question. Please go ahead and complete your thought, and I'll do my best to help. What would you like to know?
+Latest user request: something
+Latest assistant response: It seems like you started to ask something, but it's not clear what you're looking for. Could you please provide more context or clarify your question? I'll do my best to help with whatever is on your mind.
+2026-07-24 21:04:33,708 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-24 21:05:10,654 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 21:05:10,656 INFO research_agent: WebSocket query received: hey when is rakshabandhan
+2026-07-24 21:05:11,196 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 21:05:28,486 INFO research_agent: Graph update received: ['NodeExaWeb']
+2026-07-24 21:05:29,893 INFO research_agent: Graph update received: ['NodeFinal']
+2026-07-24 21:05:29,893 INFO research_agent: Memory updater started. Previous memory: Latest user request: Hello, can you tell me
+Latest assistant response: You started saying "Hello, can you tell me", but it looks like you didn't finish your question. Please go ahead and complete your thought, and I'll do my best to help. What would you like to know?
+Latest user request: something
+Latest assistant response: It seems like you started to ask something, but it's not clear what you're looking for. Could you please provide more context or clarify your question? I'll do my best to help with whatever is on your mind.
+2026-07-24 21:05:30,206 WARNING research_agent: Memory LLM returned an empty response; using fallback memory.
+2026-07-24 21:05:30,206 INFO research_agent: Memory updater finished. New memory: 'Latest user request: Hello, can you tell me\nLatest assistant response: You started saying "Hello, can you tell me", but it looks like you didn\'t finish your question. Please go ahead and complete your thought, and I\'ll do my best to help. What would you like to know?\nLatest user request: something\nLatest assistant response: It seems like you started to ask something, but it\'s not clear what you\'re looking for. Could you please provide more context or clarify your question? I\'ll do my best to help with whatever is on your mind.\nLatest user request: hey when is rakshabandhan\nLatest assistant response: ### Raksha Bandhan 2026\nRaksha Bandhan in 2026 falls on **Friday, August 28, 2026**. It is celebrated on the Purnima (full moon) tithi in the Shravana month. The Purnima Tithi begins on August 27, 2026, at 9:08 PM and ends on August 28, 2026, at 9:48 AM.\n\n#### Significance\nRaksha Bandhan is a Hindu festival that celebrates the bond between brothers and sisters. Sisters tie a Rakhi (a sacred thread) on their brother\'s wrist and pray for their well-being, while brothers vow to protect and support their sisters.\n\n#### Ceremony Time\nThe auspicious time for the Rakhi ceremony is between **5:57 AM** and **9:48 AM** on August 28, 2026. This window is considered the best time to tie the Rakhi, as it falls within the Purnima Tithi and avoids inauspicious timing.\n\n#### Public Holiday Status\nRaksha Bandhan is an optional/restricted holiday in India. Government offices and most businesses remain open, but employees can request time off as a restricted holiday.\n\n#### Practical Implication\nWhile man'
+2026-07-24 21:05:30,206 INFO research_agent: Conversation memory saved: Latest user request: Hello, can you tell me
+Latest assistant response: You started saying "Hello, can you tell me", but it looks like you didn't finish your question. Please go ahead and complete your thought, and I'll do my best to help. What would you like to know?
+Latest user request: something
+Latest assistant response: It seems like you started to ask something, but it's not clear what you're looking for. Could you please provide more context or clarify your question? I'll do my best to help with whatever is on your mind.
+Latest user request: hey when is rakshabandhan
+Latest assistant response: ### Raksha Bandhan 2026
+Raksha Bandhan in 2026 falls on **Friday, August 28, 2026**. It is celebrated on the Purnima (full moon) tithi in the Shravana month. The Purnima Tithi begins on August 27, 2026, at 9:08 PM and ends on August 28, 2026, at 9:48 AM.
+
+#### Significance
+Raksha Bandhan is a Hindu festival that celebrates the bond between brothers and sisters. Sisters tie a Rakhi (a sacred thread) on their brother's wrist and pray for their well-being, while brothers vow to protect and support their sisters.
+
+#### Ceremony Time
+The auspicious time for the Rakhi ceremony is between **5:57 AM** and **9:48 AM** on August 28, 2026. This window is considered the best time to tie the Rakhi, as it falls within the Purnima Tithi and avoids inauspicious timing.
+
+#### Public Holiday Status
+Raksha Bandhan is an optional/restricted holiday in India. Government offices and most businesses remain open, but employees can request time off as a restricted holiday.
+
+#### Practical Implication
+While man
+2026-07-24 21:05:30,207 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-24 21:06:14,589 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 21:06:14,593 INFO research_agent: WebSocket query received: in what counry did that originated
+2026-07-24 21:06:15,080 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 21:06:15,080 INFO research_agent: Memory updater started. Previous memory: Latest user request: Hello, can you tell me
+Latest assistant response: You started saying "Hello, can you tell me", but it looks like you didn't finish your question. Please go ahead and complete your thought, and I'll do my best to help. What would you like to know?
+Latest user request: something
+Latest assistant response: It seems like you started to ask something, but it's not clear what you're looking for. Could you please provide more context or clarify your question? I'll do my best to help with whatever is on your mind.
+Latest user request: hey when is rakshabandhan
+Latest assistant response: ### Raksha Bandhan 2026
+Raksha Bandhan in 2026 falls on **Friday, August 28, 2026**. It is celebrated on the Purnima (full moon) tithi in the Shravana month. The Purnima Tithi begins on August 27, 2026, at 9:08 PM and ends on August 28, 2026, at 9:48 AM.
+
+#### Significance
+Raksha Bandhan is a Hindu festival that celebrates the bond between brothers and sisters. Sisters tie a Rakhi (a sacred thread) on their brother's wrist and pray for their well-being, while brothers vow to protect and support their sisters.
+
+#### Ceremony Time
+The auspicious time for the Rakhi ceremony is between **5:57 AM** and **9:48 AM** on August 28, 2026. This window is considered the best time to tie the Rakhi, as it falls within the Purnima Tithi and avoids inauspicious timing.
+
+#### Public Holiday Status
+Raksha Bandhan is an optional/restricted holiday in India. Government offices and most businesses remain open, but employees can request time off as a restricted holiday.
+
+#### Practical Implication
+While man
+2026-07-24 21:06:15,289 WARNING research_agent: Memory LLM returned an empty response; using fallback memory.
+2026-07-24 21:06:15,289 INFO research_agent: Memory updater finished. New memory: 'Latest user request: Hello, can you tell me\nLatest assistant response: You started saying "Hello, can you tell me", but it looks like you didn\'t finish your question. Please go ahead and complete your thought, and I\'ll do my best to help. What would you like to know?\nLatest user request: something\nLatest assistant response: It seems like you started to ask something, but it\'s not clear what you\'re looking for. Could you please provide more context or clarify your question? I\'ll do my best to help with whatever is on your mind.\nLatest user request: hey when is rakshabandhan\nLatest assistant response: ### Raksha Bandhan 2026\nRaksha Bandhan in 2026 falls on **Friday, August 28, 2026**. It is celebrated on the Purnima (full moon) tithi in the Shravana month. The Purnima Tithi begins on August 27, 2026, at 9:08 PM and ends on August 28, 2026, at 9:48 AM.\n\n#### Significance\nRaksha Bandhan is a Hindu festival that celebrates the bond between brothers and sisters. Sisters tie a Rakhi (a sacred thread) on their brother\'s wrist and pray for their well-being, while brothers vow to protect and support their sisters.\n\n#### Ceremony Time\nThe auspicious time for the Rakhi ceremony is between **5:57 AM** and **9:48 AM** on August 28, 2026. This window is considered the best time to tie the Rakhi, as it falls within the Purnima Tithi and avoids inauspicious timing.\n\n#### Public Holiday Status\nRaksha Bandhan is an optional/restricted holiday in India. Government offices and most businesses remain open, but employees can request time off as a restricted holiday.\n\n#### Practical Implication\nWhile man\nLatest user request: in what counry did that originated\nLatest assistant response: Raksha Bandhan originated in India, where it is still widely celebrated today. The festival has its roots in Hindu mythology and is mentioned in several ancient Indian texts, including the Mahabharata and the Puranas. Over time, the celebration has evolved and is now observed not only in India but also in other countries with significant Hindu and Sikh populations, such as Nepal, Pakistan, and countries with Indian diaspora communities.'
+2026-07-24 21:06:15,290 INFO research_agent: Conversation memory saved: Latest user request: Hello, can you tell me
+Latest assistant response: You started saying "Hello, can you tell me", but it looks like you didn't finish your question. Please go ahead and complete your thought, and I'll do my best to help. What would you like to know?
+Latest user request: something
+Latest assistant response: It seems like you started to ask something, but it's not clear what you're looking for. Could you please provide more context or clarify your question? I'll do my best to help with whatever is on your mind.
+Latest user request: hey when is rakshabandhan
+Latest assistant response: ### Raksha Bandhan 2026
+Raksha Bandhan in 2026 falls on **Friday, August 28, 2026**. It is celebrated on the Purnima (full moon) tithi in the Shravana month. The Purnima Tithi begins on August 27, 2026, at 9:08 PM and ends on August 28, 2026, at 9:48 AM.
+
+#### Significance
+Raksha Bandhan is a Hindu festival that celebrates the bond between brothers and sisters. Sisters tie a Rakhi (a sacred thread) on their brother's wrist and pray for their well-being, while brothers vow to protect and support their sisters.
+
+#### Ceremony Time
+The auspicious time for the Rakhi ceremony is between **5:57 AM** and **9:48 AM** on August 28, 2026. This window is considered the best time to tie the Rakhi, as it falls within the Purnima Tithi and avoids inauspicious timing.
+
+#### Public Holiday Status
+Raksha Bandhan is an optional/restricted holiday in India. Government offices and most businesses remain open, but employees can request time off as a restricted holiday.
+
+#### Practical Implication
+While man
+Latest user request: in what counry did that originated
+Latest assistant response: Raksha Bandhan originated in India, where it is still widely celebrated today. The festival has its roots in Hindu mythology and is mentioned in several ancient Indian texts, including the Mahabharata and the Puranas. Over time, the celebration has evolved and is now observed not only in India but also in other countries with significant Hindu and Sikh populations, such as Nepal, Pakistan, and countries with Indian diaspora communities.
+2026-07-24 21:06:15,290 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-24 21:07:52,808 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 21:07:52,811 INFO research_agent: WebSocket query received: Hey so whats happening
+2026-07-24 21:07:54,579 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 21:08:00,349 INFO research_agent: Graph update received: ['NodeExaWeb']
+2026-07-24 21:08:01,642 INFO research_agent: Graph update received: ['NodeFinal']
+2026-07-24 21:08:01,644 INFO research_agent: Memory updater started. Previous memory: No previous memory.
+2026-07-24 21:08:01,887 WARNING research_agent: Memory LLM returned an empty response; using fallback memory.
+2026-07-24 21:08:01,887 INFO research_agent: Memory updater finished. New memory: "Latest user request: Hey so whats happening\nLatest assistant response: ### Current Situation\nThe current situation involves escalating tensions between the US and Iran, with both countries engaging in strikes and counterstrikes. Here's a summary of the key points:\n\n* **US Strikes on Iran**: The US has conducted its 13th consecutive night of attacks on Iran, targeting military command centers, drone storage facilities, communication networks, coastal surveillance sites, and maritime capabilities.\n* **Iranian Retaliation**: Iran has retaliated with explosions reported in multiple cities, including Khondab, Khorramabad, Konarak, and Jask. Iranian officials have warned of broader escalation in response to US actions.\n* **Shipping Disruptions**: Global shipping through key Gulf chokepoints remains highly disrupted, with only one tanker crossing the Strait of Hormuz on Thursday. However, two Chinese supertankers carrying Saudi crude have successfully exited the Bab al-Mandeb strait.\n* **Regional Spillover**: There have been reports of cross-border strikes, with"
+2026-07-24 21:08:01,888 INFO research_agent: Conversation memory saved: Latest user request: Hey so whats happening
+Latest assistant response: ### Current Situation
+The current situation involves escalating tensions between the US and Iran, with both countries engaging in strikes and counterstrikes. Here's a summary of the key points:
+
+* **US Strikes on Iran**: The US has conducted its 13th consecutive night of attacks on Iran, targeting military command centers, drone storage facilities, communication networks, coastal surveillance sites, and maritime capabilities.
+* **Iranian Retaliation**: Iran has retaliated with explosions reported in multiple cities, including Khondab, Khorramabad, Konarak, and Jask. Iranian officials have warned of broader escalation in response to US actions.
+* **Shipping Disruptions**: Global shipping through key Gulf chokepoints remains highly disrupted, with only one tanker crossing the Strait of Hormuz on Thursday. However, two Chinese supertankers carrying Saudi crude have successfully exited the Bab al-Mandeb strait.
+* **Regional Spillover**: There have been reports of cross-border strikes, with
+2026-07-24 21:08:01,889 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-24 21:09:51,461 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 21:09:51,464 INFO research_agent: WebSocket query received: which websites do you prefer for blogs
+2026-07-24 21:09:52,135 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 21:10:09,415 INFO research_agent: Graph update received: ['NodeExaWeb']
+2026-07-24 21:10:11,061 INFO research_agent: Graph update received: ['NodeFinal']
+2026-07-24 21:10:11,062 INFO research_agent: Memory updater started. Previous memory: No previous memory.
+2026-07-24 21:10:11,559 WARNING research_agent: Memory LLM returned an empty response; preserving prior memory.
+2026-07-24 21:10:11,560 INFO research_agent: Memory updater finished. New memory: 'No durable memory yet.'
+2026-07-24 21:10:11,560 INFO research_agent: Conversation memory saved: No durable memory yet.
+2026-07-24 21:10:11,560 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-24 21:10:50,585 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 21:10:50,588 INFO research_agent: WebSocket query received: can you make a table for these
+2026-07-24 21:10:51,439 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 21:10:51,440 INFO research_agent: Memory updater started. Previous memory: No durable memory yet.
+2026-07-24 21:10:51,671 WARNING research_agent: Memory LLM returned an empty response; preserving prior memory.
+2026-07-24 21:10:51,671 INFO research_agent: Memory updater finished. New memory: 'No durable memory yet.'
+2026-07-24 21:10:51,672 INFO research_agent: Conversation memory saved: No durable memory yet.
+2026-07-24 21:10:51,672 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-24 21:15:28,208 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 21:15:28,211 INFO research_agent: WebSocket query received: Whats up today
+2026-07-24 21:15:29,460 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 21:15:46,259 INFO research_agent: Graph update received: ['NodeExaWeb']
+2026-07-24 21:15:47,712 INFO research_agent: Graph update received: ['NodeFinal']
+2026-07-24 21:15:47,713 INFO research_agent: Memory updater started. Previous memory: No previous memory.
+2026-07-24 21:15:47,940 WARNING research_agent: Memory LLM returned an empty response; preserving prior memory.
+2026-07-24 21:15:47,940 INFO research_agent: Memory updater finished. New memory: 'No durable memory yet.'
+2026-07-24 21:15:47,941 INFO research_agent: Conversation memory saved: No durable memory yet.
+2026-07-24 21:15:47,941 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-24 21:16:46,686 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 21:16:46,689 INFO research_agent: WebSocket query received: whats this houthis thing from yr last msg
+2026-07-24 21:16:47,436 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 21:16:54,640 INFO research_agent: Graph update received: ['NodeExaWeb']
+2026-07-24 21:16:57,331 INFO research_agent: Graph update received: ['NodeFinal']
+2026-07-24 21:16:57,332 INFO research_agent: Memory updater started. Previous memory: No durable memory yet.
+2026-07-24 21:16:57,553 WARNING research_agent: Memory LLM returned an empty response; preserving prior memory.
+2026-07-24 21:16:57,553 INFO research_agent: Memory updater finished. New memory: 'No durable memory yet.'
+2026-07-24 21:16:57,554 INFO research_agent: Conversation memory saved: No durable memory yet.
+2026-07-24 21:16:57,554 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-24 21:20:40,166 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 21:20:40,168 INFO research_agent: WebSocket query received: whats up
+2026-07-24 21:20:41,114 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 21:20:41,115 INFO research_agent: Memory updater started. Previous memory: No previous memory.
+2026-07-24 21:20:41,925 INFO research_agent: Memory updater finished. New memory: 'User initiated conversation, no specific topic or preferences mentioned, open to questions or casual chat.'
+2026-07-24 21:20:41,925 INFO research_agent: Conversation memory saved: User initiated conversation, no specific topic or preferences mentioned, open to questions or casual chat.
+2026-07-24 21:20:41,926 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-24 21:21:14,224 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 21:21:14,226 INFO research_agent: WebSocket query received: so whats on 28th Aug, just tell me the name
+2026-07-24 21:21:14,781 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 21:21:27,107 INFO research_agent: Graph update received: ['NodeExaWeb']
+2026-07-24 21:21:27,610 INFO research_agent: Graph update received: ['NodeFinal']
+2026-07-24 21:21:27,610 INFO research_agent: Memory updater started. Previous memory: User initiated conversation, no specific topic or preferences mentioned, open to questions or casual chat.
+2026-07-24 21:21:28,495 INFO research_agent: Memory updater finished. New memory: 'User initiated conversation, open to questions or casual chat, inquired about events on August 28th, received list of events including Picnic Performances, Donna Summer Disco Party, and Full Moon Night Paddle.'
+2026-07-24 21:21:28,496 INFO research_agent: Conversation memory saved: User initiated conversation, open to questions or casual chat, inquired about events on August 28th, received list of events including Picnic Performances, Donna Summer Disco Party, and Full Moon Night Paddle.
+2026-07-24 21:21:28,496 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-24 21:21:40,622 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 21:21:40,625 INFO research_agent: WebSocket query received: a hindu festival ?
+2026-07-24 21:21:41,510 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 21:21:53,644 INFO research_agent: Graph update received: ['NodeExaWeb']
+2026-07-24 21:21:55,002 INFO research_agent: Graph update received: ['NodeFinal']
+2026-07-24 21:21:55,003 INFO research_agent: Memory updater started. Previous memory: User initiated conversation, open to questions or casual chat, inquired about events on August 28th, received list of events including Picnic Performances, Donna Summer Disco Party, and Full Moon Night Paddle.
+2026-07-24 21:21:55,545 INFO research_agent: Memory updater finished. New memory: 'User inquired about a Hindu festival, discovered Sravana Pournami 2026 falls on August 28, and learned about other events on this date, including Veda Upakarma, Gayatri Japam, Hayagriva Jayanti, Raksha Bandhan, Varalakshmi Vrat, and Gayatri Jayanti, as well as other significant Hindu festivals and celestial events throughout August 2026.'
+2026-07-24 21:21:55,546 INFO research_agent: Conversation memory saved: User inquired about a Hindu festival, discovered Sravana Pournami 2026 falls on August 28, and learned about other events on this date, including Veda Upakarma, Gayatri Japam, Hayagriva Jayanti, Raksha Bandhan, Varalakshmi Vrat, and Gayatri Jayanti, as well as other significant Hindu festivals and celestial events throughout August 2026.
+2026-07-24 21:21:55,546 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-24 21:22:43,944 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-24 21:22:43,947 INFO research_agent: WebSocket query received: can you make a table for that religious function names
+2026-07-24 21:22:45,317 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-24 21:22:45,318 INFO research_agent: Memory updater started. Previous memory: User inquired about a Hindu festival, discovered Sravana Pournami 2026 falls on August 28, and learned about other events on this date, including Veda Upakarma, Gayatri Japam, Hayagriva Jayanti, Raksha Bandhan, Varalakshmi Vrat, and Gayatri Jayanti, as well as other significant Hindu festivals and celestial events throughout August 2026.
+2026-07-24 21:22:46,027 INFO research_agent: Memory updater finished. New memory: 'User inquired about a Hindu festival, specifically about creating a table for the event names. A table was provided with Hindu festivals and events, including Sravana Pournami, Veda Upakarma, Gayatri Japam, Hayagriva Jayanti, Raksha Bandhan, Varalakshmi Vrat, and Gayatri Jayanti, all occurring on August 28, 2026. The user was asked if they would like to add any other information to the table, leaving the task open.'
+2026-07-24 21:22:46,028 INFO research_agent: Conversation memory saved: User inquired about a Hindu festival, specifically about creating a table for the event names. A table was provided with Hindu festivals and events, including Sravana Pournami, Veda Upakarma, Gayatri Japam, Hayagriva Jayanti, Raksha Bandhan, Varalakshmi Vrat, and Gayatri Jayanti, all occurring on August 28, 2026. The user was asked if they would like to add any other information to the table, leaving the task open.
+2026-07-24 21:22:46,028 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-25 18:00:16,564 INFO research_agent: WebSocket connected; waiting for query JSON.
+2026-07-25 18:00:16,571 INFO research_agent: WebSocket query received: Hello
+2026-07-25 18:00:17,394 INFO research_agent: Graph update received: ['NodeLLM']
+2026-07-25 18:00:17,396 INFO research_agent: Memory updater started. Previous memory: No previous memory.
+2026-07-25 18:00:17,828 INFO research_agent: Memory updater finished. New memory: 'User greeted the assistant, and the assistant responded with a greeting and an offer to help or chat. No specific topic or task has been introduced yet.'
+2026-07-25 18:00:17,829 INFO research_agent: Conversation memory saved: User greeted the assistant, and the assistant responded with a greeting and an offer to help or chat. No specific topic or task has been introduced yet.
+2026-07-25 18:00:17,829 INFO research_agent: Graph update received: ['NodeMemoryUpdater']
+2026-07-25 22:47:39,928 ERROR research_agent.supabase: Token verification failed: invalid JWT: unable to parse or verify signature, token is unverifiable: error while executing keyfunc: unrecognized JWT kid b15cda4d-795e-4e7b-8520-5ba55f775802 for algorithm ES256
+2026-07-25 22:47:40,105 ERROR research_agent.supabase: Token verification failed: invalid JWT: unable to parse or verify signature, token is unverifiable: error while executing keyfunc: unrecognized JWT kid b15cda4d-795e-4e7b-8520-5ba55f775802 for algorithm ES256
+2026-07-25 22:47:41,628 ERROR research_agent.supabase: Token verification failed: invalid JWT: unable to parse or verify signature, token is unverifiable: error while executing keyfunc: unrecognized JWT kid b15cda4d-795e-4e7b-8520-5ba55f775802 for algorithm ES256
+2026-07-25 22:48:10,848 ERROR research_agent.supabase: Token verification failed: invalid JWT: unable to parse or verify signature, token is unverifiable: error while executing keyfunc: unrecognized JWT kid b15cda4d-795e-4e7b-8520-5ba55f775802 for algorithm ES256
+2026-07-25 22:48:11,021 ERROR research_agent.supabase: Token verification failed: invalid JWT: unable to parse or verify signature, token is unverifiable: error while executing keyfunc: unrecognized JWT kid b15cda4d-795e-4e7b-8520-5ba55f775802 for algorithm ES256
+2026-07-25 22:48:13,280 ERROR research_agent.supabase: Token verification failed: invalid JWT: unable to parse or verify signature, token is unverifiable: error while executing keyfunc: unrecognized JWT kid b15cda4d-795e-4e7b-8520-5ba55f775802 for algorithm ES256
+2026-07-25 22:56:05,207 ERROR research_agent.supabase: Token verification failed: invalid JWT: unable to parse or verify signature, token is unverifiable: error while executing keyfunc: unrecognized JWT kid b15cda4d-795e-4e7b-8520-5ba55f775802 for algorithm ES256
+2026-07-25 22:56:06,131 ERROR research_agent.supabase: Token verification failed: invalid JWT: unable to parse or verify signature, token is unverifiable: error while executing keyfunc: unrecognized JWT kid b15cda4d-795e-4e7b-8520-5ba55f775802 for algorithm ES256
+2026-07-25 22:56:06,905 ERROR research_agent.supabase: Token verification failed: invalid JWT: unable to parse or verify signature, token is unverifiable: error while executing keyfunc: unrecognized JWT kid b15cda4d-795e-4e7b-8520-5ba55f775802 for algorithm ES256
+2026-07-25 22:56:37,082 ERROR research_agent.auth: Signup failed: Invalid API key
+2026-07-25 22:58:53,691 ERROR research_agent.supabase: Token verification failed: invalid JWT: unable to parse or verify signature, token is unverifiable: error while executing keyfunc: unrecognized JWT kid b15cda4d-795e-4e7b-8520-5ba55f775802 for algorithm ES256
+2026-07-25 22:58:54,584 ERROR research_agent.supabase: Token verification failed: invalid JWT: unable to parse or verify signature, token is unverifiable: error while executing keyfunc: unrecognized JWT kid b15cda4d-795e-4e7b-8520-5ba55f775802 for algorithm ES256
+2026-07-25 22:59:15,004 ERROR research_agent.auth: Signup failed: Invalid API key
+2026-07-25 23:06:01,565 ERROR research_agent.supabase: Token verification failed: invalid JWT: unable to parse or verify signature, token is unverifiable: error while executing keyfunc: unrecognized JWT kid b15cda4d-795e-4e7b-8520-5ba55f775802 for algorithm ES256
+2026-07-25 23:20:32,886 ERROR research_agent.supabase: Token verification failed: Invalid API key
+2026-07-25 23:20:33,386 ERROR research_agent.supabase: Token verification failed: Invalid API key
+2026-07-25 23:20:35,340 ERROR research_agent.supabase: Token verification failed: Invalid API key
+2026-07-25 23:20:35,955 ERROR research_agent.supabase: Token verification failed: Invalid API key
+2026-07-25 23:20:39,727 ERROR research_agent.supabase: Token verification failed: Invalid API key
+2026-07-25 23:20:49,991 ERROR research_agent.supabase: Token verification failed: Invalid API key
+2026-07-25 23:20:55,852 ERROR research_agent.supabase: Token verification failed: Invalid API key
+2026-07-25 23:26:53,195 ERROR research_agent.supabase: Token verification failed: Invalid API key
+2026-07-25 23:26:53,962 ERROR research_agent.supabase: Token verification failed: Invalid API key
+2026-07-25 23:26:55,340 ERROR research_agent.supabase: Token verification failed: Invalid API key
+2026-07-25 23:28:39,630 ERROR research_agent.auth: Signup failed: Email address "apitest@example.com" is invalid
+2026-07-25 23:29:21,184 ERROR research_agent.auth: Signup failed: email rate limit exceeded
