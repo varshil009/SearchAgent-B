@@ -1,9 +1,9 @@
 from services.exa import ExaClient
+from services.app_logger import get_app_logger
 from .agent_state import AgentState
-import logging
 
 
-logger = logging.getLogger(__name__)
+logger = get_app_logger("websearch")
 LLM_RESULT_FIELDS = ("title", "published_date", "author", "summary", "highlights")
 
 class NodeExaWeb:

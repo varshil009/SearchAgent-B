@@ -8,8 +8,9 @@ logger = get_app_logger()
 
 class AgentLoop:
     def __init__(self):
-        self.graph = Graph().compileX()
         self.thread_memories: dict[str, MemorySaver] = {}
+        self.default_memory = MemorySaver()
+        self.graph = Graph().compileX(checkpointer=self.default_memory)
 
     def _get_memory(self, thread_id: str) -> MemorySaver:
         """Get or create a MemorySaver for the given thread."""
@@ -19,13 +20,11 @@ class AgentLoop:
         return self.thread_memories[thread_id]
 
     def run(self, state: AgentState, thread_id: str | None = None):
-        memory = self._get_memory(thread_id) if thread_id else MemorySaver()
         config = {"configurable": {"thread_id": thread_id or "default"}}
         final_results = self.graph.invoke(state, config=config)
         return final_results
 
     def stream(self, state: AgentState, thread_id: str | None = None):
-        memory = self._get_memory(thread_id) if thread_id else MemorySaver()
         config = {"configurable": {"thread_id": thread_id or "default"}}
         for update in self.graph.stream(state, config=config, stream_mode="updates"):
             node_update = next(iter(update.values()))

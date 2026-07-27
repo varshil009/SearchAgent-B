@@ -1,2 +1,4 @@
 .env
 supabase_url/
+*.log
+*.log.txt

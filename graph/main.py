@@ -17,7 +17,7 @@ class Graph:
             return "websearch"
         return "direct"
 
-    def compileX(self):
+    def compileX(self, checkpointer=None):
 
         graph = StateGraph(AgentState)
         graph.add_node("NodeLLM", self.llm_node.generate)
@@ -40,4 +40,4 @@ class Graph:
         graph.add_edge("NodeFinal", "NodeMemoryUpdater")
         graph.add_edge("NodeMemoryUpdater", END)
 
-        return graph.compile()
+        return graph.compile(checkpointer=checkpointer)

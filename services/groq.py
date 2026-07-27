@@ -1,5 +1,10 @@
 import os
+from pathlib import Path
+
+from dotenv import load_dotenv
 from groq import Groq
+
+load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
 class GroqClient:
     def __init__(self):
