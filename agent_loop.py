@@ -2,6 +2,7 @@ from graph.main import Graph
 from graph.agent_state import AgentState
 from services.app_logger import get_app_logger
 from langgraph.checkpoint.memory import MemorySaver
+from typing import Optional
 
 
 logger = get_app_logger()
@@ -19,13 +20,22 @@ class AgentLoop:
             logger.info("Created new MemorySaver for thread=%s", thread_id)
         return self.thread_memories[thread_id]
 
-    def run(self, state: AgentState, thread_id: str | None = None):
+    def _get_graph_for_thread(self, thread_id: Optional[str] = None):
+        """Get a compiled graph with the appropriate checkpointer for the given thread."""
+        if thread_id:
+            memory = self._get_memory(thread_id)
+            return Graph().compileX(checkpointer=memory)
+        return self.graph
+
+    def run(self, state: AgentState, thread_id: Optional[str] = None):
         config = {"configurable": {"thread_id": thread_id or "default"}}
-        final_results = self.graph.invoke(state, config=config)
+        graph = self._get_graph_for_thread(thread_id)
+        final_results = graph.invoke(state, config=config)
         return final_results
 
-    def stream(self, state: AgentState, thread_id: str | None = None):
+    def stream(self, state: AgentState, thread_id: Optional[str] = None):
         config = {"configurable": {"thread_id": thread_id or "default"}}
-        for update in self.graph.stream(state, config=config, stream_mode="updates"):
+        graph = self._get_graph_for_thread(thread_id)
+        for update in graph.stream(state, config=config, stream_mode="updates"):
             node_update = next(iter(update.values()))
             yield update

@@ -10,3 +10,4 @@ class AgentState(MessagesState):
     convo_memory: str
     search_results : list
     final_response: Annotated[list[str], add]
+    conversation_title: str

@@ -41,6 +41,7 @@ def create_initial_state(query: str):
         "status_messages": ["generating"],
         "convo_memory": "",
         "final_response": [],
+        "conversation_title": "",
     }
 
 
@@ -62,22 +63,29 @@ def query_agent(request: QueryRequest):
 
 @app.websocket("/ws/query")
 async def query_agent_stream(websocket: WebSocket):
-    """Receive {"query": "..."} and send JSON status/response messages.
+    """Receive {"query": "...", "thread_id": "..."} and send JSON status/response messages.
 
-    This endpoint is stateless: it does not authenticate users or persist
-    messages and threads.
+    thread_id is required — it is generated on the frontend (crypto.randomUUID())
+    and used to maintain per-thread conversation state via MemorySaver.
     """
     await websocket.accept()
     logger.info("WebSocket connected")
     disconnected = False
     try:
-        request = QueryRequest(**await websocket.receive_json())
-        query = request.query
-        logger.info("WebSocket query received: %s", query)
+        data = await websocket.receive_json()
+        query = data.get("query", "").strip()
+        thread_id = data.get("thread_id")
+
+        if not query:
+            await websocket.send_json({"type": "error", "detail": "Query is required."})
+            return
+
+        logger.info("WebSocket query received: %s (thread=%s)", query, thread_id)
 
         await websocket.send_json({"type": "status", "status": "generating"})
 
-        for update in agent_loop.stream(create_initial_state(query)):
+        title_suggestion = None
+        for update in agent_loop.stream(create_initial_state(query), thread_id=thread_id):
             logger.info("Graph update received: %s", list(update))
             node_update = next(iter(update.values()))
 
@@ -89,6 +97,17 @@ async def query_agent_stream(websocket: WebSocket):
 
             for response in node_update.get("final_response", []):
                 await websocket.send_json({"type": "response", "response": response})
+
+            # Capture title suggestion from the title gen node
+            if node_update.get("conversation_title"):
+                title_suggestion = node_update["conversation_title"]
+
+        # Send the title suggestion as a final message
+        if title_suggestion:
+            await websocket.send_json({
+                "type": "title_suggestion",
+                "title": title_suggestion
+            })
 
     except ValidationError as error:
         await websocket.send_json({"type": "error", "detail": error.errors()})
