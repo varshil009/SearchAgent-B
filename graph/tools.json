@@ -3,6 +3,10 @@
         {
             "name" : "websearch",
             "description" : "allows to search on internet to get most relevant/recent results"
+        },
+        {
+            "name" : "wikisearch",
+            "description" : "allows to search Wikipedia for historical, biographical, and encyclopedic information"
         }
     ]
 }

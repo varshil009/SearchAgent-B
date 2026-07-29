@@ -20,9 +20,13 @@ class NodeLLM:
 
                                 Analyze the user's query and respond best according to your knowledge.
 
-                                If the user query requires latest developement/news,
-                                go through list of tools and output strictly json.
-                                and all json keys must be strictly double quoted or "key".
+                                Use the following rules to decide which tool to call:
+
+                                - If the user query is about **historical events, biographies, general knowledge, encyclopedic or informational topics** → use the "wikisearch" tool.
+                                - If the user query requires **latest developments, breaking news, recent events, or time-sensitive information** → use the "websearch" tool.
+
+                                When a tool is needed, output strictly json.
+                                All json keys must be strictly double quoted or "key".
                                 
                                 Query initiation date : {self.date}
 
@@ -64,10 +68,15 @@ class NodeLLM:
 
         # Tool call
         if parsed_response.get("tool_required"):
+            tool_name = parsed_response.get("tool", "")
+            if tool_name == "wikisearch":
+                status_msg = "searching through wikipedia"
+            else:
+                status_msg = "searching web"
             return {
                 "search_required": [True],
                 "search_queries": [parsed_response["tool_query"]],
-                "status_messages": ["searching web"]
+                "status_messages": [status_msg]
             }
 
         # Valid JSON/dict, but no tool required
@@ -96,10 +105,15 @@ class NodeLLM:
                 r = ast.literal_eval(json_string)
 
             if r.get("tool_required"):
+                tool_name = r.get("tool", "")
+                if tool_name == "wikisearch":
+                    status_msg = "searching through wikipedia"
+                else:
+                    status_msg = "searching web"
                 return {
                     "search_required": [True],
                     "search_queries": [r["tool_query"]],
-                    "status_messages": ["searching web"]
+                    "status_messages": [status_msg]
                 }
 
         except (ValueError, SyntaxError, json.JSONDecodeError):
