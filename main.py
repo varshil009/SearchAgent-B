@@ -1,21 +1,18 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import AIMessage, HumanMessage
 from pydantic import BaseModel, Field, ValidationError
 from services.app_logger import get_app_logger
-
 from agent_loop import AgentLoop
 
 
 class QueryRequest(BaseModel):
     query: str = Field(min_length=1, description="The user's message for the agent")
 
-
 class QueryResponse(BaseModel):
     response: str
     statuses: list[str]
     image_links: list[str]
-
 
 app = FastAPI(title="Research Agent API")
 
@@ -31,15 +28,35 @@ agent_loop = AgentLoop()
 logger = get_app_logger()
 
 
-def create_initial_state(query: str):
+async def send_status(websocket: WebSocket, status: str):
+    """Forward a graph status update to the connected browser."""
+    await websocket.send_json({"type": "status", "status": status})
+
+
+def create_initial_state(query: str, convo_memory: str = "", history: list | None = None):
+    messages = []
+    for item in history or []:
+        if not isinstance(item, dict):
+            continue
+        content = item.get("content")
+        if not isinstance(content, str) or not content.strip():
+            continue
+        if item.get("role") in ("user", "Human"):
+            messages.append(HumanMessage(content=content))
+        elif item.get("role") in ("assistant", "AI"):
+            messages.append(AIMessage(content=content))
+
+    if not messages or messages[-1].type != "human" or messages[-1].content != query:
+        messages.append(HumanMessage(content=query))
+
     return {
-        "messages": [HumanMessage(content=query)],
+        "messages": messages,
         "search_required": [False],
         "search_results": None,
         "search_queries": [],
         "image_links": [],
         "status_messages": ["generating"],
-        "convo_memory": "",
+        "convo_memory": convo_memory,
         "final_response": [],
         "conversation_title": "",
     }
@@ -60,7 +77,6 @@ def query_agent(request: QueryRequest):
         image_links=state["image_links"],
     )
 
-
 @app.websocket("/ws/query")
 async def query_agent_stream(websocket: WebSocket):
     """Receive {"query": "...", "thread_id": "..."} and send JSON status/response messages.
@@ -70,33 +86,57 @@ async def query_agent_stream(websocket: WebSocket):
     """
     await websocket.accept()
     logger.info("WebSocket connected")
+    await websocket.send_json({"type": "connection", "status": "connected"})
     disconnected = False
     try:
         data = await websocket.receive_json()
         query = data.get("query", "").strip()
         thread_id = data.get("thread_id")
+        convo_memory = data.get("summary", "")
+        history = data.get("history", [])
+        if not isinstance(convo_memory, str):
+            convo_memory = ""
+        if not isinstance(history, list):
+            history = []
 
         if not query:
             await websocket.send_json({"type": "error", "detail": "Query is required."})
             return
 
-        logger.info("WebSocket query received: %s (thread=%s)", query, thread_id)
+        restore_history = not agent_loop.has_memory(thread_id)
+        state_history = history if restore_history else []
+        logger.info(
+            "WebSocket query received: %s (thread=%s, history_messages=%d, restoring=%s)",
+            query,
+            thread_id,
+            len(history),
+            restore_history,
+        )
 
-        await websocket.send_json({"type": "status", "status": "generating"})
+        if restore_history and history:
+            await send_status(websocket, "restoring chat")
+
+        await send_status(websocket, "generating")
 
         title_suggestion = None
-        for update in agent_loop.stream(create_initial_state(query), thread_id=thread_id):
+        for update in agent_loop.stream(
+            create_initial_state(query, convo_memory, state_history), thread_id=thread_id
+        ):
             logger.info("Graph update received: %s", list(update))
             node_update = next(iter(update.values()))
 
             for status in node_update.get("status_messages", []):
-                await websocket.send_json({"type": "status", "status": status})
+                await send_status(websocket, status)
 
             if image_links := node_update.get("image_links"):
                 await websocket.send_json({"type": "images", "image_links": image_links})
 
             for response in node_update.get("final_response", []):
                 await websocket.send_json({"type": "response", "response": response})
+
+            if summary := node_update.get("convo_memory"):
+                logger.info("Sending generated summary for thread=%s", thread_id)
+                await websocket.send_json({"type": "summary", "summary": summary})
 
             # Capture title suggestion from the title gen node
             if node_update.get("conversation_title"):

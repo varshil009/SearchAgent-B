@@ -27,6 +27,7 @@ class Graph:
         graph.add_node("NodeExaWeb", self.websearch_node.search)
         graph.add_node("NodeFinal", self.final_node.generate)
         graph.add_node("NodeMemoryUpdater", self.memory_node.generate)
+        
         graph.add_edge(START, "NodeTitleGen")
         graph.add_edge("NodeTitleGen", "NodeLLM")
         # on 2nd arg's (self.tool_bool) values are used as keys in next dict arg, 
