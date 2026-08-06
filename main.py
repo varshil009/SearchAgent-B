@@ -153,15 +153,14 @@ async def query_agent_stream(websocket: WebSocket):
         await websocket.send_json({"type": "error", "detail": error.errors()})
     except WebSocketDisconnect:
         disconnected = True
-    except Exception:
-        logger.exception("Agent execution failed")
+    except Exception as e:
+        logger.exception("Agent execution failed : %s", e)
         await websocket.send_json(
             {"type": "error", "detail": "The agent could not complete the request."}
         )
     finally:
         if not disconnected:
             await websocket.close()
-
 
 if __name__ == "__main__":
     import uvicorn

@@ -4,7 +4,7 @@ Usage: python -m graph.generate_graph_viz
 Output: agent_graph.png
 """
 
-from .main import Graph
+from graph.main import Graph
 
 def main():
     # Build the graph (no checkpointer needed for visualization)
