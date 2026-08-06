@@ -1,10 +1,13 @@
-from json.decoder import JSONDecodeError
-from services.groq import GroqClient 
-import json
-from .agent_state import AgentState
-from langchain_core.messages import AIMessage
 import ast
+import json
 import time
+from json.decoder import JSONDecodeError
+
+from langchain_core.messages import AIMessage
+
+from services.groq import GroqClient
+from .agent_state import AgentState
+
 
 class NodeLLM:
     def __init__(self):
@@ -35,10 +38,10 @@ class NodeLLM:
 
                                 When a tool is needed, output strictly json.
                                 All json keys must be strictly double quoted or "key".
-                                
+
                                 Query initiation date : {self.date}
 
-                                list of tools : 
+                                list of tools :
                                 {tools}
 
                                 STRICLY response format if tool call is required :
@@ -46,10 +49,11 @@ class NodeLLM:
 
                                 You will find conversation history along, generate answer accordingly.
                             """
-        
+
         self.llm = GroqClient()
 
     def generate(self, state: AgentState):
+        """Invoke the LLM once, then turn its response into a graph update."""
         prompt_with_memory = f"""
             {self.node_prompt}
 
@@ -58,78 +62,50 @@ class NodeLLM:
         """
         response = self.llm.generate_response(
             state["messages"],
-            prompt_with_memory
+            prompt_with_memory,
         )
+        return self.extract_json_and_return(response)
 
-        # First try proper JSON
-        try:
-            parsed_response = json.loads(response)
+    def extract_json_and_return(self, response):
+        """Parse an already-generated response; this method never calls the LLM."""
+        parsed_response = self._extract_json(response)
 
-        # If not JSON, try Python dict syntax
-        except JSONDecodeError:
-            try:
-                parsed_response = ast.literal_eval(response)
-
-            # It's neither JSON nor a Python dict → normal LLM answer
-            except (ValueError, SyntaxError):
-                return self.extract_json_and_return(response)
-
-        # Tool call
-        if parsed_response.get("tool_required"):
+        if isinstance(parsed_response, dict) and parsed_response.get("tool_required"):
             tool_name = parsed_response.get("tool", "")
-            if tool_name == "wikisearch":
-                status_msg = "searching through wikipedia"
-            else:
-                status_msg = "searching web"
+            status_msg = (
+                "searching through wikipedia"
+                if tool_name == "wikisearch"
+                else "searching web"
+            )
             return {
                 "search_required": [True],
                 "search_queries": [parsed_response["tool_query"]],
-                "status_messages": [status_msg]
+                "status_messages": [status_msg],
             }
 
-        # Valid JSON/dict, but no tool required
-        return {
-            "search_required": [False]
-        }
-
-    
-    def extract_json_and_return(self, response):
-        try:
-            # Extract JSON object from surrounding conversational text
-            start = response.find("{")
-            end = response.rfind("}") + 1
-
-            if start == -1 or end == 0:
-                raise ValueError("No JSON found")
-
-            json_string = response[start:end]
-
-            # Try valid JSON first
-            try:
-                r = json.loads(json_string)
-
-            # Fallback for Python-style dict from LLM
-            except json.JSONDecodeError:
-                r = ast.literal_eval(json_string)
-
-            if r.get("tool_required"):
-                tool_name = r.get("tool", "")
-                if tool_name == "wikisearch":
-                    status_msg = "searching through wikipedia"
-                else:
-                    status_msg = "searching web"
-                return {
-                    "search_required": [True],
-                    "search_queries": [r["tool_query"]],
-                    "status_messages": [status_msg]
-                }
-
-        except (ValueError, SyntaxError, json.JSONDecodeError):
-            pass
-
-        # No valid tool call → treat as normal response
+        # No valid tool call: use the original generated response directly.
         return {
             "messages": [AIMessage(content=response)],
             "search_required": [False],
-            "final_response": [response]
+            "final_response": [response],
         }
+
+    @staticmethod
+    def _extract_json(response):
+        """Support JSON, Python-style dicts, and JSON embedded in text."""
+        candidates = [response]
+        start = response.find("{")
+        end = response.rfind("}") + 1
+        if start != -1 and end > start:
+            candidates.append(response[start:end])
+
+        for candidate in candidates:
+            try:
+                return json.loads(candidate)
+            except JSONDecodeError:
+                try:
+                    return ast.literal_eval(candidate)
+                except (ValueError, SyntaxError):
+                    continue
+
+        return None

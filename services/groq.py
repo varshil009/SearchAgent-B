@@ -17,6 +17,9 @@ class GroqClient:
             {"role": "system", "content": system_prompt}
         ]
 
+        ## messages are created in groq supported formate;
+        ## [{"role" : "user", "content" : "asdfghjk..."}, 
+        ##  {"role" : "assistant", "content" : "asdfghjk..."]
         for message in convo:
             role = "user" if message.type == "human" else "assistant"
 
