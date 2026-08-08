@@ -1,3 +1,5 @@
+
+from . import instrumentation
 from langgraph.graph import START, END, StateGraph, MessagesState
 from .node_llm import NodeLLM
 from .node_websearch import NodeExaWeb
@@ -6,6 +8,11 @@ from .node_response_formatter import NodeFinal
 from .node_memory_updater import NodeMemoryUpdater
 from .node_title_gen import NodeTitleGen
 from .agent_state import AgentState
+
+
+
+
+
 
 class Graph:
     def __init__(self):
@@ -27,7 +34,6 @@ class Graph:
         return "direct"
 
     def compileX(self, checkpointer=None):
-
         graph = StateGraph(AgentState)
         graph.add_node("NodeTitleGen", self.title_gen_node.generate)
         graph.add_node("NodeLLM", self.llm_node.generate)
