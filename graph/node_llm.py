@@ -1,5 +1,6 @@
 import ast
 import json
+import re
 import time
 from json.decoder import JSONDecodeError
 
@@ -36,7 +37,9 @@ class NodeLLM:
                                 - If the user query is about **historical events, biographies, general knowledge, encyclopedic or informational topics** → use the "wikisearch" tool.
                                 - If the user query requires **latest developments, breaking news, recent events, or time-sensitive information** → use the "websearch" tool.
 
-                                When a tool is needed, output strictly json.
+                                Only when a tool is needed, output the tool-request JSON wrapped exactly in <tool> and </tool> tags.
+                                Do not add any text before or after the tags.
+                                If no tool is needed, answer the user normally and do not include <tool> tags.
                                 All json keys must be strictly double quoted or "key".
 
                                 Query initiation date : {self.date}
@@ -45,7 +48,9 @@ class NodeLLM:
                                 {tools}
 
                                 STRICLY response format if tool call is required :
+                                <tool>
                                 {tools_request_format}
+                                </tool>
 
                                 You will find conversation history along, generate answer accordingly.
                             """
@@ -67,8 +72,8 @@ class NodeLLM:
         return self.extract_json_and_return(response)
 
     def extract_json_and_return(self, response):
-        """Parse an already-generated response; this method never calls the LLM."""
-        parsed_response = self._extract_json(response)
+        """Parse a tagged tool request; this method never calls the LLM."""
+        parsed_response = self._extract_tool_request(response)
 
         if isinstance(parsed_response, dict) and parsed_response.get("tool_required"):
             tool_name = parsed_response.get("tool", "")
@@ -91,21 +96,18 @@ class NodeLLM:
         }
 
     @staticmethod
-    def _extract_json(response):
-        """Support JSON, Python-style dicts, and JSON embedded in text."""
-        candidates = [response]
-        start = response.find("{")
-        end = response.rfind("}") + 1
-        if start != -1 and end > start:
-            candidates.append(response[start:end])
+    def _extract_tool_request(response):
+        """Return the JSON/dict contained in a <tool>...</tool> tag, if any."""
+        match = re.search(r"<tool>\s*(.*?)\s*</tool>", response, re.DOTALL)
+        if not match:
+            return None
 
-        for candidate in candidates:
+        tool_request = match.group(1)
+        try:
+            return json.loads(tool_request)
+        except JSONDecodeError:
+            # Keep the fallback for models that use single-quoted dict syntax.
             try:
-                return json.loads(candidate)
-            except JSONDecodeError:
-                try:
-                    return ast.literal_eval(candidate)
-                except (ValueError, SyntaxError):
-                    continue
-
-        return None
+                return ast.literal_eval(tool_request)
+            except (ValueError, SyntaxError):
+                return None

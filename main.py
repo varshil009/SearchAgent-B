@@ -33,7 +33,12 @@ async def send_status(websocket: WebSocket, status: str):
     await websocket.send_json({"type": "status", "status": status})
 
 
-def create_initial_state(query: str, convo_memory: str = "", history: list | None = None):
+def create_initial_state(
+    query: str,
+    convo_memory: str = "",
+    history: list | None = None,
+    convo_title: str = "",
+):
     messages = []
     for item in history or []:
         if not isinstance(item, dict):
@@ -57,6 +62,7 @@ def create_initial_state(query: str, convo_memory: str = "", history: list | Non
         "image_links": [],
         "status_messages": ["generating"],
         "convo_memory": convo_memory,
+        "convo_title": convo_title,
         "final_response": [],
         "conversation_title": "",
     }
@@ -79,7 +85,7 @@ def query_agent(request: QueryRequest):
 
 @app.websocket("/ws/query")
 async def query_agent_stream(websocket: WebSocket):
-    """Receive {"query": "...", "thread_id": "..."} and send JSON status/response messages.
+    """Receive a query, thread ID, stored title, and history; stream graph updates.
 
     thread_id is required — it is generated on the frontend (crypto.randomUUID())
     and used to maintain per-thread conversation state via MemorySaver.
@@ -93,9 +99,12 @@ async def query_agent_stream(websocket: WebSocket):
         query = data.get("query", "").strip()
         thread_id = data.get("thread_id")
         convo_memory = data.get("summary", "")
+        convo_title = data.get("convo_title", "")
         history = data.get("history", [])
         if not isinstance(convo_memory, str):
             convo_memory = ""
+        if not isinstance(convo_title, str):
+            convo_title = ""
         if not isinstance(history, list):
             history = []
 
@@ -120,7 +129,7 @@ async def query_agent_stream(websocket: WebSocket):
 
         title_suggestion = None
         for update in agent_loop.stream(
-            create_initial_state(query, convo_memory, state_history), thread_id=thread_id
+            create_initial_state(query, convo_memory, state_history, convo_title), thread_id=thread_id
         ):
             logger.info("Graph update received: %s", list(update))
             node_update = next(iter(update.values()))

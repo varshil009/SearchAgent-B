@@ -21,4 +21,5 @@ class AgentState(MessagesState):
     convo_memory: str
     search_results : list
     final_response: Annotated[list[str], add]
+    convo_title: str
     conversation_title: str

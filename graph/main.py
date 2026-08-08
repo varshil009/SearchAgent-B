@@ -10,10 +10,6 @@ from .node_title_gen import NodeTitleGen
 from .agent_state import AgentState
 
 
-
-
-
-
 class Graph:
     def __init__(self):
         self.llm_node = NodeLLM()
@@ -33,6 +29,11 @@ class Graph:
             return "websearch"
         return "direct"
 
+    @staticmethod
+    def route_after_start(state: AgentState):
+        """Generate a title only when this conversation does not have one."""
+        return "title_gen" if not state.get("convo_title", "").strip() else "llm"
+
     def compileX(self, checkpointer=None):
         graph = StateGraph(AgentState)
         graph.add_node("NodeTitleGen", self.title_gen_node.generate)
@@ -42,7 +43,14 @@ class Graph:
         graph.add_node("NodeFinal", self.final_node.generate)
         graph.add_node("NodeMemoryUpdater", self.memory_node.generate)
         
-        graph.add_edge(START, "NodeTitleGen")
+        graph.add_conditional_edges(
+            START,
+            self.route_after_start,
+            {
+                "title_gen": "NodeTitleGen",
+                "llm": "NodeLLM",
+            },
+        )
         graph.add_edge("NodeTitleGen", "NodeLLM")
         # on 2nd arg's (self.tool_bool) values are used as keys in next dict arg, 
         # and according to value it directs to that node
