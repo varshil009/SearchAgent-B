@@ -8,7 +8,8 @@ class NodeWiki:
 
     def search(self, state: AgentState):
         try:
-            raw_results = self.client.search(state["search_queries"][-1])[:5]
+            query = state["tool_request"]["tool_query"]
+            raw_results = self.client.search(query)[:5]
             results = []
             for article in raw_results:
                 words = article.split()

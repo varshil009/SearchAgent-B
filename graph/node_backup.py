@@ -1,8 +1,12 @@
 from langchain_core.messages import AIMessage
 
 from services.groq import GroqClient
+from services.app_logger import get_app_logger
 from .agent_state import AgentState
 from .node_driver import NodeDriver
+
+
+logger = get_app_logger("node_backup")
 
 
 class NodeBackup:
@@ -24,7 +28,9 @@ class NodeBackup:
         try:
             response = self.llm.generate_response(state["messages"], prompt)
         except Exception:
+            logger.exception("NodeBackup request failed")
             response = "I’m sorry, but I couldn’t complete that request reliably."
+        logger.info("NodeBackup raw LLM response (run=%s): %r", state.get("tool_run_id"), response)
         return {
             "messages": [AIMessage(content=response)],
             "final_response": [response],

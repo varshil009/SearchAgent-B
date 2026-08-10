@@ -4,6 +4,7 @@ from langgraph.graph import START, END, StateGraph
 from .agent_state import AgentState
 from .node_backup import NodeBackup
 from .node_llm import NodeLLM
+from .node_memory_updater import NodeMemoryUpdater
 from .node_python import NodePython
 from .node_driver import NodeDriver
 from .node_title_gen import NodeTitleGen
@@ -19,6 +20,7 @@ class Graph:
         self.python_node = NodePython()
         self.driver_node = NodeDriver()
         self.backup_node = NodeBackup()
+        self.memory_node = NodeMemoryUpdater()
         self.title_gen_node = NodeTitleGen()
 
     @staticmethod
@@ -40,6 +42,7 @@ class Graph:
         graph.add_node("NodePython", self.python_node.search)
         graph.add_node("NodeDriver", self.driver_node.generate)
         graph.add_node("NodeBackup", self.backup_node.generate)
+        graph.add_node("NodeMemoryUpdater", self.memory_node.generate)
 
         graph.add_conditional_edges(
             START,
@@ -51,7 +54,7 @@ class Graph:
             "NodeLLM",
             self.route_after_decision,
             {
-                "final": END,
+                "final": "NodeMemoryUpdater",
                 "websearch": "NodeExaWeb",
                 "wikisearch": "NodeWiki",
                 "node_python": "NodePython",
@@ -63,7 +66,7 @@ class Graph:
             "NodeDriver",
             self.route_after_decision,
             {
-                "final": END,
+                "final": "NodeMemoryUpdater",
                 "websearch": "NodeExaWeb",
                 "wikisearch": "NodeWiki",
                 "node_python": "NodePython",
@@ -74,6 +77,7 @@ class Graph:
         graph.add_edge("NodeExaWeb", "NodeDriver")
         graph.add_edge("NodeWiki", "NodeDriver")
         graph.add_edge("NodePython", "NodeDriver")
-        graph.add_edge("NodeBackup", END)
+        graph.add_edge("NodeBackup", "NodeMemoryUpdater")
+        graph.add_edge("NodeMemoryUpdater", END)
 
         return graph.compile(checkpointer=checkpointer)

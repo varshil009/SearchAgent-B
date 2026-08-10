@@ -59,7 +59,7 @@ def _is_inline_safe(tree: ast.Module) -> bool:
 
     Windows process spawning can take several seconds in an API worker. Restricting
     this mode to a single `result = expression` keeps common arithmetic immediate;
-    larger work remains isolated in the timeout-bounded subprocess mode.
+    larger work remains isolated in the timeout-bounded worker process.
     """
     if len(tree.body) != 1 or not isinstance(tree.body[0], ast.Assign):
         return False
@@ -109,22 +109,18 @@ def _python_worker(code: str, last_tool_result: Any, output: multiprocessing.Que
 class NodePython:
     def search(self, state: AgentState):
         request = state.get("tool_request") or {}
-        query = request.get("tool_query")
-        code = request.get("tool_content", "")
-        if query not in {"exec", "subprocess"}:
-            result = {"ok": False, "error": "node_python only accepts exec or subprocess."}
-            return self._result_update(result)
+        code = request.get("tool_query", "")
 
         try:
             tree = validate_python(code)
         except PythonValidationError as error:
             return self._result_update({"ok": False, "error": str(error)})
 
-        if query == "exec" and _is_inline_safe(tree):
+        if _is_inline_safe(tree):
             return self._result_update(_execute_code(code, state.get("tool_results")))
 
-        # `subprocess` and multi-statement exec requests are isolated so they
-        # can be forcefully terminated if they exceed the execution deadline.
+        # Larger code is isolated so it can be forcefully terminated if it exceeds
+        # the execution deadline.
         queue: multiprocessing.Queue = multiprocessing.Queue()
         process = multiprocessing.Process(
             target=_python_worker, args=(code, state.get("tool_results"), queue)

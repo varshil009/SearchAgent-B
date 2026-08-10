@@ -5,7 +5,38 @@ from .tool_result_schema import describe_tool_result
 
 
 logger = get_app_logger("websearch")
-LLM_RESULT_FIELDS = ("title", "published_date", "author", "summary", "highlights")
+MAX_SUMMARY_WORDS = 120
+MAX_HIGHLIGHT_WORDS = 40
+MAX_HIGHLIGHTS = 3
+
+
+def _truncate_words(value, limit: int):
+    """Keep Exa's free-form text within the decision node's prompt budget."""
+    if not isinstance(value, str):
+        return value
+    words = value.split()
+    if len(words) <= limit:
+        return value
+    return " ".join(words[:limit]) + " …"
+
+
+def _compact_result(result: dict) -> dict:
+    highlights = result.get("highlights")
+    if isinstance(highlights, list):
+        highlights = [
+            _truncate_words(str(highlight), MAX_HIGHLIGHT_WORDS)
+            for highlight in highlights[:MAX_HIGHLIGHTS]
+        ]
+    else:
+        highlights = _truncate_words(highlights, MAX_HIGHLIGHT_WORDS)
+
+    return {
+        "title": _truncate_words(result.get("title"), 30),
+        "published_date": result.get("published_date"),
+        "author": _truncate_words(result.get("author"), 30),
+        "summary": _truncate_words(result.get("summary"), MAX_SUMMARY_WORDS),
+        "highlights": highlights,
+    }
 
 class NodeExaWeb:
     def __init__(self):
@@ -14,11 +45,9 @@ class NodeExaWeb:
     def search(self, state:AgentState):
         ## for now to limit token exceeding, cap to 3 results only
         try:
-            raw_results = self.client.search(state["search_queries"][-1])[:3]
-            results = [
-                {field: result.get(field) for field in LLM_RESULT_FIELDS}
-                for result in raw_results
-            ]
+            query = state["tool_request"]["tool_query"]
+            raw_results = self.client.search(query)[:3]
+            results = [_compact_result(result) for result in raw_results]
             image_links = [
                 result["image"]
                 for result in raw_results

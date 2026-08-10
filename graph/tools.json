@@ -10,7 +10,7 @@
         },
         {
             "name" : "node_python",
-            "description" : "restricted local computation over only the latest tool result; tool_query is exec or subprocess and tool_content contains Python code"
+            "description" : "restricted local computation over only the latest tool result; tool_query contains Python code, preferably one `result = expression` statement with no print, temporary variables, or semicolons; execution mode is selected automatically"
         }
     ]
 }

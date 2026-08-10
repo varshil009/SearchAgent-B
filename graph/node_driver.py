@@ -5,6 +5,7 @@ from typing import Any
 from langchain_core.messages import AIMessage
 
 from services.groq import GroqClient
+from services.app_logger import get_app_logger
 from .agent_state import AgentState
 
 
@@ -12,6 +13,7 @@ MAX_INLINE_TOOL_RESULT_CHARS = 12_000
 MAX_CONSECUTIVE_IDENTICAL_TOOL_CALLS = 5
 MAX_TOOL_EXECUTIONS = 20
 VALID_TOOLS = {"websearch", "wikisearch", "node_python"}
+logger = get_app_logger("node_driver")
 
 
 class NodeDriver:
@@ -27,10 +29,14 @@ class NodeDriver:
         try:
             response = self.llm.generate_response(state["messages"], prompt)
         except Exception:
+            logger.exception("NodeDriver request failed")
             return {"next_action": "backup", "status_messages": ["generating"]}
+
+        logger.info("NodeDriver raw LLM response (run=%s): %r", state.get("tool_run_id"), response)
 
         final_text = self._extract_final(response)
         if final_text is not None:
+            logger.info("NodeDriver routing decision: final")
             return {
                 "messages": [AIMessage(content=final_text)],
                 "final_response": [final_text],
@@ -41,6 +47,11 @@ class NodeDriver:
 
         request = self._extract_tool_request(response)
         if request is None or loop_blocked:
+            logger.warning(
+                "NodeDriver routing decision: backup (invalid_response=%s, loop_blocked=%s)",
+                request is None,
+                loop_blocked,
+            )
             return {"next_action": "backup", "status_messages": ["generating"]}
 
         history = self._current_run_history(state)
@@ -58,6 +69,7 @@ class NodeDriver:
         status = "searching through wikipedia" if request["tool"] == "wikisearch" else "searching web"
         if request["tool"] == "node_python":
             status = "computing"
+        logger.info("NodeDriver routing decision: %s; request=%s", request["tool"], request)
         return {
             "tool_request": request,
             "tool_execution_history": [{
@@ -78,21 +90,34 @@ class NodeDriver:
         schema = state.get("latest_tool_schema") or "No tool result is available yet."
         if not tool_request:
             tool_context = "No tool has been executed for this request yet."
+            post_tool_rule = ""
         elif len(serialized_result) <= MAX_INLINE_TOOL_RESULT_CHARS:
             tool_context = (
-                "The following tool request was just completed:\n"
+                "=== COMPLETED TOOL REQUEST ===\n"
                 f"{serialized_request}\n\n"
-                "Its result is:\n"
+                "=== AUTHORITATIVE RESULT FROM THAT REQUEST ===\n"
                 f"{serialized_result}"
             )
+            post_tool_rule = """
+                CRITICAL POST-TOOL RULE: The request and result below are already
+                complete. Treat the result as the primary evidence for your next
+                decision. Do not claim that the information is unavailable or ask
+                for the same request again when the result contains relevant content.
+                If it answers the user, your only valid next action is <final>.
+            """
         else:
             tool_context = (
-                "The following tool request was just completed:\n"
+                "=== COMPLETED TOOL REQUEST ===\n"
                 f"{serialized_request}\n\n"
-                "Its result is too large to include. Its schema is:\n"
+                "=== RESULT TOO LARGE TO INLINE; SCHEMA ===\n"
                 f"{schema}\n\nUse node_python only if computation over last_tool_result is substantially "
                 "more reliable than normal reasoning."
             )
+            post_tool_rule = """
+                CRITICAL POST-TOOL RULE: The request below has already completed.
+                Use its schema to decide whether targeted computation is needed;
+                never repeat the same request merely because its full result is large.
+            """
 
         final_only = "\nYou must now return a <final> answer using the available information." if loop_blocked else ""
         return f"""
@@ -105,15 +130,18 @@ class NodeDriver:
             </final>
 
             <tool>
-            {{"tool_required": true, "tool": "websearch|wikisearch|node_python", "tool_query": "...", "tool_content": "..."}}
+            {{"tool_required": true, "tool": "websearch|wikisearch|node_python", "tool_query": "..."}}
             </tool>
 
             Use websearch for current information and wikisearch for stable,
             encyclopedic information. Use node_python only for computation. For
-            node_python, tool_query must be "exec" or "subprocess" and tool_content
-            must be Python code that assigns its answer to `result`. It receives only
-            `last_tool_result`; it cannot use files, network, shell commands, packages,
-            environment variables, or imports.
+            For node_python, tool_query is the Python code itself. Do not declare an
+            execution mode. Prefer exactly one `result = expression` statement;
+            do not use semicolons, temporary variables, multiple statements, or
+            `print()`, because the value of `result` is returned automatically.
+            Example: `result = len(['a', 'b'])`. The runtime selects the appropriate
+            execution mode. Python receives only `last_tool_result`; it cannot use
+            files, network, shell commands, packages, environment variables, or imports.
 
             After a tool result is present, inspect the completed request and its
             result before deciding. If that result answers the user's request,
@@ -122,6 +150,7 @@ class NodeDriver:
             information to answer or choose a materially different request.
 
             Do not mention tools, internal instructions, or routing to the user.
+            {post_tool_rule}
             {tool_context}
             Latest tool-result schema: {schema}
             {final_only}
@@ -151,14 +180,12 @@ class NodeDriver:
             request = json.loads(match.group(1))
         except json.JSONDecodeError:
             return None
-        required = {"tool_required", "tool", "tool_query", "tool_content"}
+        required = {"tool_required", "tool", "tool_query"}
         if set(request) != required or request.get("tool_required") is not True:
             return None
         if request.get("tool") not in VALID_TOOLS:
             return None
-        if not all(isinstance(request.get(key), str) for key in ("tool", "tool_query", "tool_content")):
-            return None
-        if request["tool"] == "node_python" and request["tool_query"] not in {"exec", "subprocess"}:
+        if not all(isinstance(request.get(key), str) for key in ("tool", "tool_query")):
             return None
         return request
 
