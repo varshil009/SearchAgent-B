@@ -7,6 +7,10 @@
         {
             "name" : "wikisearch",
             "description" : "allows to search Wikipedia for historical, biographical, and encyclopedic information"
+        },
+        {
+            "name" : "node_python",
+            "description" : "restricted local computation over only the latest tool result; tool_query is exec or subprocess and tool_content contains Python code"
         }
     ]
 }

@@ -1,6 +1,6 @@
 from langgraph.graph import MessagesState
 from operator import add
-from typing import Annotated
+from typing import Annotated, Any
 
 class AgentState(MessagesState):
     """
@@ -19,7 +19,15 @@ class AgentState(MessagesState):
     image_links: Annotated[list[str], add]
     status_messages: Annotated[list[str], add]
     convo_memory: str
-    search_results : list
+    # This is deliberately a non-reduced field: Python only sees the newest
+    # tool output, never the entire historical state.
+    tool_results: Any
+    latest_tool_schema: str
+    tool_request: dict[str, Any]
+    tool_execution_history: Annotated[list[dict[str, str]], add]
+    tool_run_id: str
+    loop_blocked: bool
+    next_action: str
     final_response: Annotated[list[str], add]
     convo_title: str
     conversation_title: str

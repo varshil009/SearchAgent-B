@@ -1,4 +1,5 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from uuid import uuid4
 from fastapi.middleware.cors import CORSMiddleware
 from langchain_core.messages import AIMessage, HumanMessage
 from pydantic import BaseModel, Field, ValidationError
@@ -57,7 +58,13 @@ def create_initial_state(
     return {
         "messages": messages,
         "search_required": [False],
-        "search_results": None,
+        "tool_results": None,
+        "latest_tool_schema": "No tool result is available yet.",
+        "tool_request": {},
+        "tool_execution_history": [],
+        "tool_run_id": str(uuid4()),
+        "loop_blocked": False,
+        "next_action": "",
         "search_queries": [],
         "image_links": [],
         "status_messages": ["generating"],

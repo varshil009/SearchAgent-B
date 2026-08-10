@@ -26,13 +26,19 @@ class AgentLoop:
 
     def run(self, state: AgentState, thread_id: Optional[str] = None):
         graph = self._get_graph_for_thread(thread_id)
-        config = {"configurable": {"thread_id": thread_id or "default"}}
+        config = {
+            "configurable": {"thread_id": thread_id or "default"},
+            "recursion_limit": 64,
+        }
         final_results = graph.invoke(state, config=config)
         return final_results
 
     def stream(self, state: AgentState, thread_id: Optional[str] = None):
         graph = self._get_graph_for_thread(thread_id)
-        config = {"configurable": {"thread_id": thread_id or "default"}}
+        config = {
+            "configurable": {"thread_id": thread_id or "default"},
+            "recursion_limit": 64,
+        }
         for update in graph.stream(state, config=config, stream_mode="updates"):
             node_update = next(iter(update.values()))
             yield update

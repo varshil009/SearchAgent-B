@@ -1,6 +1,7 @@
 from services.exa import ExaClient
 from services.app_logger import get_app_logger
 from .agent_state import AgentState
+from .tool_result_schema import describe_tool_result
 
 
 logger = get_app_logger("websearch")
@@ -35,8 +36,9 @@ class NodeExaWeb:
             ]
             image_links = []
 
-        return { 
-                "search_results" : results, 
+        return {
+                "tool_results": results,
+                "latest_tool_schema": describe_tool_result(results),
                 "image_links": image_links,
                 "search_required" : [False],
                 "status_messages": ["generating"]
