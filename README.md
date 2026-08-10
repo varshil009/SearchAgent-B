@@ -22,52 +22,7 @@ The agent maintains **per-thread conversation state via MemorySaver checkpointin
 
 At the core of SearchAgent-B is a `StateGraph` from LangGraph. The state (`AgentState`) extends `MessagesState` with custom fields for tool results, execution history, image links, status messages, and more — all with **annotated reducers** for clean merge semantics across nodes.
 
-### Graph Flow
-
-```
-START
-  │
-  ▼
-┌─────────────────────────────────────────────────────────────┐
-│  NodeTitleGen       (only if no existing conversation title) │
-│  ─ Generates a short title via LLM or falls back to query   │
-└─────────────────────────┬───────────────────────────────────┘
-                          │
-                          ▼
-┌─────────────────────────────────────────────────────────────┐
-│  NodeLLM               (initial decision node)               │
-│  ─ Decides: <final> answer OR <tool> invocation              │
-│  ─ Routes to WebSearch, WikiSearch, NodePython, or Backup   │
-└──────────┬──────────────────────────────────────────────────┘
-           │                     ▲
-           ▼                     │
-┌──────────────────────┐        │
-│  NodeExaWeb          │        │
-│  NodeWiki            │        │  (cyclic: re-enters
-│  NodePython          │        │   NodeDriver after
-└──────────┬───────────┘        │   each tool execution)
-           │                     │
-           ▼                     │
-┌────────────────────────────────┴──────────────────────────┐
-│  NodeDriver           (central decision node, cyclic)      │
-│  ─ Inspects tool result, conversation context              │
-│  ─ Routes to final, next tool, or backup                   │
-│  ─ Enforces: max 5 consecutive identical calls,            │
-│    max 20 tool executions, loop_blocked guard              │
-└────────────────────────┬──────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────┐
-│  NodeMemoryUpdater     (terminal node)                      │
-│  ─ Condenses conversation into a persistent summary         │
-│  ─ Preserves user preferences, facts, and open tasks        │
-└─────────────────────────────────────────────────────────────┘
-                         │
-                         ▼
-                         END
-```
-
-A **NodeBackup** node exists as a safety net — when the decision node fails or returns invalid output, the backup generates a best-effort answer using available context.
+The graph PNG above visualizes the complete topology. A **NodeBackup** node exists as a safety net — when the decision node fails or returns invalid output, the backup generates a best-effort answer using available context.
 
 ---
 
@@ -165,6 +120,14 @@ The `/ws/query` endpoint streams graph updates as they happen using LangGraph's 
 ### 7. Arize Phoenix Observability
 
 The graph is instrumented with **Arize Phoenix** for local tracing and LLM observability — every node execution, LLM call latency, and token usage is captured:
+
+<p align="center">
+  <img src="phoenix.png" alt="Arize Phoenix trace treechart showing a single graph invocation" width="700"/>
+</p>
+
+<p align="center">
+  <i>Phoenix trace treechart — each span represents a node execution during one graph invocation, with full timing and LLM metadata.</i>
+</p>
 
 ```python
 from phoenix.otel import register
