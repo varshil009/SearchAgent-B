@@ -16,6 +16,12 @@ class AgentLoop:
     def has_memory(self, thread_id: Optional[str]) -> bool:
         return bool(thread_id and thread_id in self.thread_memories)
 
+    def remove_memory(self, thread_id: Optional[str]):
+        """Remove a thread's MemorySaver (called on WebSocket disconnect)."""
+        if thread_id and thread_id in self.thread_memories:
+            del self.thread_memories[thread_id]
+            logger.info("Removed MemorySaver for thread=%s", thread_id)
+
     def _get_graph_for_thread(self, thread_id: Optional[str] = None):
         if not thread_id:
             return self.graph

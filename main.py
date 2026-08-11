@@ -1,3 +1,4 @@
+import asyncio
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from uuid import uuid4
 from fastapi.middleware.cors import CORSMiddleware
@@ -5,6 +6,9 @@ from langchain_core.messages import AIMessage, HumanMessage
 from pydantic import BaseModel, Field, ValidationError
 from services.app_logger import get_app_logger
 from agent_loop import AgentLoop
+
+
+SESSION_INACTIVITY_TIMEOUT = 30 * 60  # 30 minutes
 
 
 class QueryRequest(BaseModel):
@@ -90,93 +94,133 @@ def query_agent(request: QueryRequest):
         image_links=state["image_links"],
     )
 
+
 @app.websocket("/ws/query")
 async def query_agent_stream(websocket: WebSocket):
-    """Receive a query, thread ID, stored title, and history; stream graph updates.
+    """Persistent WebSocket per thread session.
 
-    thread_id is required — it is generated on the frontend (crypto.randomUUID())
-    and used to maintain per-thread conversation state via MemorySaver.
+    - Stays open for 30 minutes of inactivity after the last query.
+    - On disconnect or timeout, removes thread memory from MemorySaver.
+    - Frontend can send multiple queries over the same connection.
+    - If thread memory was cleared (session expired), frontend sends full history
+      to rehydrate the MemorySaver.
     """
     await websocket.accept()
     logger.info("WebSocket connected")
-    await websocket.send_json({"type": "connection", "status": "connected"})
-    disconnected = False
+    await websocket.send_json({"type": "session_status", "connected": True})
+
+    thread_id = None
+    inactivity_task = None
+
+    async def inactivity_timeout():
+        """Wait for inactivity timeout, then close the session."""
+        try:
+            await asyncio.sleep(SESSION_INACTIVITY_TIMEOUT)
+            # Session expired due to inactivity
+            await websocket.send_json({"type": "session_expired"})
+            await websocket.send_json({"type": "session_status", "connected": False})
+            logger.info("Session expired for thread=%s due to inactivity", thread_id)
+            if thread_id:
+                agent_loop.remove_memory(thread_id)
+            await websocket.close()
+        except Exception:
+            pass
+
     try:
-        data = await websocket.receive_json()
-        query = data.get("query", "").strip()
-        thread_id = data.get("thread_id")
-        convo_memory = data.get("summary", "")
-        convo_title = data.get("convo_title", "")
-        history = data.get("history", [])
-        if not isinstance(convo_memory, str):
-            convo_memory = ""
-        if not isinstance(convo_title, str):
-            convo_title = ""
-        if not isinstance(history, list):
-            history = []
+        while True:
+            data = await websocket.receive_json()
+            query = data.get("query", "").strip()
+            thread_id = data.get("thread_id")
+            convo_memory = data.get("summary", "")
+            convo_title = data.get("convo_title", "")
+            history = data.get("history", [])
+            if not isinstance(convo_memory, str):
+                convo_memory = ""
+            if not isinstance(convo_title, str):
+                convo_title = ""
+            if not isinstance(history, list):
+                history = []
 
-        if not query:
-            await websocket.send_json({"type": "error", "detail": "Query is required."})
-            return
+            if not query:
+                await websocket.send_json({"type": "error", "detail": "Query is required."})
+                continue
 
-        restore_history = not agent_loop.has_memory(thread_id)
-        state_history = history if restore_history else []
-        logger.info(
-            "WebSocket query received: %s (thread=%s, history_messages=%d, restoring=%s)",
-            query,
-            thread_id,
-            len(history),
-            restore_history,
-        )
+            # Reset inactivity timer on each new query
+            if inactivity_task:
+                inactivity_task.cancel()
+                inactivity_task = None
 
-        if restore_history and history:
-            await send_status(websocket, "restoring chat")
+            restore_history = not agent_loop.has_memory(thread_id)
+            state_history = history if restore_history else []
+            logger.info(
+                "WebSocket query received: %s (thread=%s, history_messages=%d, restoring=%s)",
+                query,
+                thread_id,
+                len(history),
+                restore_history,
+            )
 
-        await send_status(websocket, "generating")
+            if restore_history and history:
+                await send_status(websocket, "restoring chat")
 
-        title_suggestion = None
-        for update in agent_loop.stream(
-            create_initial_state(query, convo_memory, state_history, convo_title), thread_id=thread_id
-        ):
-            logger.info("Graph update received: %s", list(update))
-            node_update = next(iter(update.values()))
+            await send_status(websocket, "generating")
 
-            for status in node_update.get("status_messages", []):
-                await send_status(websocket, status)
+            title_suggestion = None
+            for update in agent_loop.stream(
+                create_initial_state(query, convo_memory, state_history, convo_title), thread_id=thread_id
+            ):
+                logger.info("Graph update received: %s", list(update))
+                node_update = next(iter(update.values()))
 
-            if image_links := node_update.get("image_links"):
-                await websocket.send_json({"type": "images", "image_links": image_links})
+                for status in node_update.get("status_messages", []):
+                    await send_status(websocket, status)
 
-            for response in node_update.get("final_response", []):
-                await websocket.send_json({"type": "response", "response": response})
+                if image_links := node_update.get("image_links"):
+                    await websocket.send_json({"type": "images", "image_links": image_links})
 
-            if summary := node_update.get("convo_memory"):
-                logger.info("Sending generated summary for thread=%s", thread_id)
-                await websocket.send_json({"type": "summary", "summary": summary})
+                for response in node_update.get("final_response", []):
+                    await websocket.send_json({"type": "response", "response": response})
 
-            # Capture title suggestion from the title gen node
-            if node_update.get("conversation_title"):
-                title_suggestion = node_update["conversation_title"]
+                if summary := node_update.get("convo_memory"):
+                    logger.info("Sending generated summary for thread=%s", thread_id)
+                    await websocket.send_json({"type": "summary", "summary": summary})
 
-        # Send the title suggestion as a final message
-        if title_suggestion:
-            await websocket.send_json({
-                "type": "title_suggestion",
-                "title": title_suggestion
-            })
+                # Capture title suggestion from the title gen node
+                if node_update.get("conversation_title"):
+                    title_suggestion = node_update["conversation_title"]
+
+            # Send the title suggestion as a final message
+            if title_suggestion:
+                await websocket.send_json({
+                    "type": "title_suggestion",
+                    "title": title_suggestion
+                })
+
+            # Signal that the response is complete (frontend uses this to reset isGenerating)
+            await websocket.send_json({"type": "done"})
+
+            # (Re)start inactivity timer after query completes
+            inactivity_task = asyncio.create_task(inactivity_timeout())
 
     except ValidationError as error:
         await websocket.send_json({"type": "error", "detail": error.errors()})
     except WebSocketDisconnect:
-        disconnected = True
+        logger.info("WebSocket disconnected for thread=%s", thread_id)
     except Exception as e:
         logger.exception("Agent execution failed : %s", e)
-        await websocket.send_json(
-            {"type": "error", "detail": "The agent could not complete the request."}
-        )
+        try:
+            await websocket.send_json(
+                {"type": "error", "detail": "The agent could not complete the request."}
+            )
+        except Exception:
+            pass
     finally:
-        if not disconnected:
-            await websocket.close()
+        # Clean up: remove thread memory and cancel inactivity timer
+        if inactivity_task:
+            inactivity_task.cancel()
+        if thread_id:
+            agent_loop.remove_memory(thread_id)
+
 
 if __name__ == "__main__":
     import uvicorn

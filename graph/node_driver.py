@@ -124,6 +124,13 @@ class NodeDriver:
             You are the decision-making node for a research assistant. Review the
             complete conversation and the latest tool output, then choose exactly one action.
 
+            IMPORTANT: When writing the final answer, use rich Markdown formatting to
+            make important information stand out. Use **bold** for key terms, concepts,
+            or important numbers. Use *italics* for emphasis or secondary highlights.
+            Use bullet lists and numbered lists to organize related points. Use tables
+            when comparing data or presenting structured information. The frontend
+            renders Markdown natively, so all formatting will display correctly.
+
             Return exactly one of these formats, with no surrounding text:
             <final>
             Markdown answer for the user
