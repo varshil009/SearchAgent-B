@@ -229,8 +229,8 @@ async def query_agent_stream(websocket: WebSocket):
 
 if __name__ == "__main__":
     import uvicorn
-    ## change this host to 0.0.0.0 for prod
-    HOST = os.getenv("HOST", "127.0.0.1")
+    ## change this host to 0.0.0.0 for prod and to 127.0.0.1 for dev
+    HOST = os.getenv("HOST", "0.0.0.0")
 
     PORT = int(os.getenv("PORT", "8000"))
     RELOAD = os.getenv("RELOAD", "true").lower() == "true"
