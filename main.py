@@ -1,4 +1,5 @@
 import asyncio
+import os
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from uuid import uuid4
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,9 +22,11 @@ class QueryResponse(BaseModel):
 
 app = FastAPI(title="Research Agent API")
 
+CORS_ORIGINS = os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -225,4 +228,8 @@ async def query_agent_stream(websocket: WebSocket):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    HOST = os.getenv("HOST", "127.0.0.1")
+    PORT = int(os.getenv("PORT", "8000"))
+    RELOAD = os.getenv("RELOAD", "true").lower() == "true"
+
+    uvicorn.run("main:app", host=HOST, port=PORT, reload=RELOAD)
