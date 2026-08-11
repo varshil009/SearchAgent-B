@@ -1,5 +1,7 @@
 # 🔍 SearchAgent-B — A LangGraph-Powered Multi-Tool Research Agent
 
+> **Looking for the product experience?** Explore the [SearchAgent frontend](https://github.com/varshil009/SearchAgent-F) — a React-based real-time chat interface for this research agent.
+
 <p align="center">
   <img src="agent_graph.png" alt="SearchAgent-B LangGraph Architecture" width="700"/>
 </p>

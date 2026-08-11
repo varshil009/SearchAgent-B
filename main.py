@@ -165,6 +165,8 @@ async def query_agent_stream(websocket: WebSocket):
 
             if restore_history and history:
                 await send_status(websocket, "restoring chat")
+            else:
+                await send_status(websocket, "starting a new conversation")
 
             await send_status(websocket, "generating")
 
@@ -174,7 +176,7 @@ async def query_agent_stream(websocket: WebSocket):
             ):
                 logger.info("Graph update received: %s", list(update))
                 node_update = next(iter(update.values()))
-
+ 
                 for status in node_update.get("status_messages", []):
                     await send_status(websocket, status)
 
@@ -227,8 +229,9 @@ async def query_agent_stream(websocket: WebSocket):
 
 if __name__ == "__main__":
     import uvicorn
-
+    ## change this host to 0.0.0.0 for prod
     HOST = os.getenv("HOST", "127.0.0.1")
+
     PORT = int(os.getenv("PORT", "8000"))
     RELOAD = os.getenv("RELOAD", "true").lower() == "true"
 

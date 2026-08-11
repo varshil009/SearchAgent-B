@@ -1,0 +1,10 @@
+.env
+.git
+.agents
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.log
+*.log.txt
+agent_graph.png
+phoenix.png
