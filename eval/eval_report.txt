@@ -1,0 +1,365 @@
+======================================================================
+Agent Tool Selection Evaluation Report
+======================================================================
+Date: 2026-08-13 14:10:24 UTC
+Total Evaluations: 99
+
+--- Overall Accuracy ---
+  Correct:  2 / 99 (2.02%)
+  Wrong:    97 / 99 (97.98%)
+
+--- Per-Tool Metrics ---
+Tool                 Precision    Recall       F1-Score     Support   
+------------------------------------------------------------------
+websearch            100.00     % 6.06       % 0.1143       33        
+wikisearch           0.00       % 0.00       % 0.0000       33        
+node_python          0.00       % 0.00       % 0.0000       33        
+
+Macro F1-Score: 0.0381
+
+--- Confusion Matrix (rows=ground_truth, cols=prediction) ---
+                     websearch    wikisearch   node_python  final    backup  
+------------------------------------------------------------------------
+websearch            2            0            0            0        31      
+wikisearch           0            0            0            0        33      
+node_python          0            0            0            0        33      
+
+--- Tool Argument Quality ---
+  Python Executability Rate: 0 / 0 (0.00%)
+  Query Conciseness Score:   2 / 2 (100.00%)
+
+--- Cost Efficiency Index ---
+  Score: 3.79%
+
+--- Latency ---
+  Average: 0.045s
+  Min:     0.025s
+  Max:     0.802s
+
+--- Detailed Results ---
+ID           Ground Truth     Prediction       Match    Domain                        
+----------------------------------------------------------------------------------
+EVAL-001     websearch        websearch        ✓        Finance & Markets             
+EVAL-002     websearch        websearch        ✓        Current Events                
+EVAL-003     websearch        backup           ✗        Finance & Markets             
+EVAL-004     websearch        backup           ✗        Weather & Environment         
+EVAL-005     websearch        backup           ✗        Sports                        
+EVAL-006     websearch        backup           ✗        Local & Traffic               
+EVAL-007     websearch        backup           ✗        Entertainment                 
+EVAL-008     websearch        backup           ✗        Software & Tech               
+EVAL-009     websearch        backup           ✗        Finance & Policy              
+EVAL-010     websearch        backup           ✗        Local Services                
+EVAL-011     websearch        backup           ✗        Finance & Crypto              
+EVAL-012     websearch        backup           ✗        Travel & Aviation             
+EVAL-013     websearch        backup           ✗        Sports                        
+EVAL-014     websearch        backup           ✗        Social Media Trends           
+EVAL-015     websearch        backup           ✗        Entertainment                 
+EVAL-016     websearch        backup           ✗        Aerospace & News              
+EVAL-017     websearch        backup           ✗        Energy & Economy              
+EVAL-018     websearch        backup           ✗        Software & AI                 
+EVAL-019     websearch        backup           ✗        Lottery & Games               
+EVAL-020     websearch        backup           ✗        Weather & Safety              
+EVAL-021     websearch        backup           ✗        Sports                        
+EVAL-022     websearch        backup           ✗        Public Health                 
+EVAL-023     websearch        backup           ✗        Global News                   
+EVAL-024     websearch        backup           ✗        Tech Status                   
+EVAL-025     websearch        backup           ✗        Real Estate & Finance         
+EVAL-026     websearch        backup           ✗        Tech Events                   
+EVAL-027     websearch        backup           ✗        Sports                        
+EVAL-028     websearch        backup           ✗        Global Trade & News           
+EVAL-029     websearch        backup           ✗        Public Transit                
+EVAL-030     websearch        backup           ✗        Environment                   
+EVAL-031     websearch        backup           ✗        Gaming News                   
+EVAL-032     websearch        backup           ✗        Search Trends                 
+EVAL-033     websearch        backup           ✗        Crypto & Blockchain           
+EVAL-034     wikisearch       backup           ✗        History & Art                 
+EVAL-035     wikisearch       backup           ✗        Physics & Science             
+EVAL-036     wikisearch       backup           ✗        Ancient History               
+EVAL-037     wikisearch       backup           ✗        Zoology & Biology             
+EVAL-038     wikisearch       backup           ✗        Modern History                
+EVAL-039     wikisearch       backup           ✗        Architecture & History        
+EVAL-040     wikisearch       backup           ✗        Literature                    
+EVAL-041     wikisearch       backup           ✗        Cellular Biology              
+EVAL-042     wikisearch       backup           ✗        Geology & Geography           
+EVAL-043     wikisearch       backup           ✗        World History                 
+EVAL-044     wikisearch       backup           ✗        Scientific Biography          
+EVAL-045     wikisearch       backup           ✗        Sports History                
+EVAL-046     wikisearch       backup           ✗        Geography & Ecology           
+EVAL-047     wikisearch       backup           ✗        Pharmacology & History        
+EVAL-048     wikisearch       backup           ✗        20th Century History          
+EVAL-049     wikisearch       backup           ✗        Philosophy                    
+EVAL-050     wikisearch       backup           ✗        Political History             
+EVAL-051     wikisearch       backup           ✗        Space Exploration             
+EVAL-052     wikisearch       backup           ✗        World Heritage                
+EVAL-053     wikisearch       backup           ✗        Theoretical Physics           
+EVAL-054     wikisearch       backup           ✗        Musicology & History          
+EVAL-055     wikisearch       backup           ✗        Marine Biology                
+EVAL-056     wikisearch       backup           ✗        Board Games History           
+EVAL-057     wikisearch       backup           ✗        Medieval History              
+EVAL-058     wikisearch       backup           ✗        Religious Studies             
+EVAL-059     wikisearch       backup           ✗        Classical Mechanics           
+EVAL-060     wikisearch       backup           ✗        Archaeology                   
+EVAL-061     wikisearch       backup           ✗        Ancient History               
+EVAL-062     wikisearch       backup           ✗        Biochemistry                  
+EVAL-063     wikisearch       backup           ✗        Classic Literature            
+EVAL-064     wikisearch       backup           ✗        Computer History              
+EVAL-065     wikisearch       backup           ✗        Geography                     
+EVAL-066     wikisearch       backup           ✗        Chemistry History             
+EVAL-067     node_python      backup           ✗        Financial Calculation         
+EVAL-068     node_python      backup           ✗        Statistics                    
+EVAL-069     node_python      backup           ✗        Number Theory                 
+EVAL-070     node_python      backup           ✗        Linear Algebra                
+EVAL-071     node_python      backup           ✗        Datetime Arithmetic           
+EVAL-072     node_python      backup           ✗        String Processing             
+EVAL-073     node_python      backup           ✗        Algebra                       
+EVAL-074     node_python      backup           ✗        Data Parsing                  
+EVAL-075     node_python      backup           ✗        Sequence Algorithms           
+EVAL-076     node_python      backup           ✗        Linear Algebra                
+EVAL-077     node_python      backup           ✗        Unit Conversion               
+EVAL-078     node_python      backup           ✗        Monte Carlo Simulation        
+EVAL-079     node_python      backup           ✗        Text Processing               
+EVAL-080     node_python      backup           ✗        Combinatorics & Math          
+EVAL-081     node_python      backup           ✗        Vector Mathematics            
+EVAL-082     node_python      backup           ✗        Data Structures               
+EVAL-083     node_python      backup           ✗        Arithmetic                    
+EVAL-084     node_python      backup           ✗        String Manipulation           
+EVAL-085     node_python      backup           ✗        Numerical Calculus            
+EVAL-086     node_python      backup           ✗        Financial Metrics             
+EVAL-087     node_python      backup           ✗        Financial Math                
+EVAL-088     node_python      backup           ✗        Security & Randomness         
+EVAL-089     node_python      backup           ✗        Number Theory                 
+EVAL-090     node_python      backup           ✗        Statistical Analysis          
+EVAL-091     node_python      backup           ✗        Text Analytics                
+EVAL-092     node_python      backup           ✗        Linear Systems                
+EVAL-093     node_python      backup           ✗        Descriptive Statistics        
+EVAL-094     node_python      backup           ✗        Date Processing               
+EVAL-095     node_python      backup           ✗        Cryptography                  
+EVAL-096     node_python      backup           ✗        Geometry                      
+EVAL-097     node_python      backup           ✗        Regex Filtering               
+EVAL-098     node_python      backup           ✗        Recurrence Relations          
+EVAL-099     node_python      backup           ✗        Data Reshaping                
+
+======================================================================
+Failure Analysis — wikisearch Ground Truth (Raw LLM Responses)
+======================================================================
+Total wikisearch failures: 33
+
+--- EVAL-034 | Predicted: backup | Domain: History & Art ---
+  Prompt: What is the history and origin of the Renaissance movement in Europe?
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-035 | Predicted: backup | Domain: Physics & Science ---
+  Prompt: Can you provide an overview of Albert Einstein's theory of general relativity?
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-036 | Predicted: backup | Domain: Ancient History ---
+  Prompt: Who was Julius Caesar and what were the events leading to his assassination in 44 BC?
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-037 | Predicted: backup | Domain: Zoology & Biology ---
+  Prompt: What are the biological characteristics and taxonomy of the Giant Panda?
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-038 | Predicted: backup | Domain: Modern History ---
+  Prompt: What were the primary geopolitical causes and consequences of the Treaty of Versailles in 1919?
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-039 | Predicted: backup | Domain: Architecture & History ---
+  Prompt: What is the architectural design and structural history of the Eiffel Tower?
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-040 | Predicted: backup | Domain: Literature ---
+  Prompt: Provide a summary of the plot, characters, and major themes of Herman Melville's 'Moby-Dick'.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-041 | Predicted: backup | Domain: Cellular Biology ---
+  Prompt: What are the key biological functions and structure of human mitochondria?
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-042 | Predicted: backup | Domain: Geology & Geography ---
+  Prompt: What is the geological history and tectonic formation of the Grand Canyon?
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-043 | Predicted: backup | Domain: World History ---
+  Prompt: Explain the history and economic significance of the ancient Silk Road trading network.
+  Raw LLM Response (first 300 chars):
+  
+
+======================================================================
+Failure Analysis — node_python Ground Truth (Raw LLM Responses)
+======================================================================
+Total node_python failures: 33
+
+--- EVAL-067 | Predicted: backup | Domain: Financial Calculation ---
+  Prompt: Calculate the compound interest on a $10,000 principal at 5.5% annual interest compounded monthly over 15 years.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-068 | Predicted: backup | Domain: Statistics ---
+  Prompt: Given the list [14, 28, 35, 42, 99, 105, 210], calculate its population standard deviation and variance.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-069 | Predicted: backup | Domain: Number Theory ---
+  Prompt: Determine whether the integer 104,729 is a prime number.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-070 | Predicted: backup | Domain: Linear Algebra ---
+  Prompt: Compute the matrix product of A = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] and B = [[9, 8, 7], [6, 5, 4], [3, 2, 1]].
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-071 | Predicted: backup | Domain: Datetime Arithmetic ---
+  Prompt: Calculate the exact date and UTC timestamp 10,000 hours from '2026-08-13 12:00:00'.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-072 | Predicted: backup | Domain: String Processing ---
+  Prompt: Reverse the string 'Supercalifragilisticexpialidocious' and count the exact frequency of each vowel.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-073 | Predicted: backup | Domain: Algebra ---
+  Prompt: Solve the quadratic equation 3x^2 - 14x + 8 = 0 for its exact roots.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-074 | Predicted: backup | Domain: Data Parsing ---
+  Prompt: Parse the JSON string '{"users": [{"name": "Alice", "score": 88}, {"name": "Bob", "score": 95}]}' and compute average sc
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-075 | Predicted: backup | Domain: Sequence Algorithms ---
+  Prompt: Generate the first 30 terms of the Fibonacci sequence and find the sum of all even numbers among them.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-076 | Predicted: backup | Domain: Linear Algebra ---
+  Prompt: Compute the determinant of the 4x4 matrix [[4, 3, 2, 1], [3, 2, 1, 4], [2, 1, 4, 3], [1, 4, 3, 2]].
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-077 | Predicted: backup | Domain: Unit Conversion ---
+  Prompt: Convert 450 degrees Fahrenheit to Celsius and Kelvin, formatted to 4 decimal places.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-078 | Predicted: backup | Domain: Monte Carlo Simulation ---
+  Prompt: Simulate rolling two 6-sided dice 100,000 times and output the empirical probability of getting a sum of 7.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-079 | Predicted: backup | Domain: Text Processing ---
+  Prompt: Find all unique words in 'The quick brown fox jumps over the lazy dog' sorted alphabetically by word length.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-080 | Predicted: backup | Domain: Combinatorics & Math ---
+  Prompt: Compute 50 factorial (50!) and count how many trailing zeros it contains.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-081 | Predicted: backup | Domain: Vector Mathematics ---
+  Prompt: Calculate the Euclidean distance and Cosine similarity between vectors v1 = [1, 3, 5, 7, 9] and v2 = [2, 4, 6, 8, 10].
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-082 | Predicted: backup | Domain: Data Structures ---
+  Prompt: Sort a list of dicts [{'name': 'A', 'age': 30}, {'name': 'B', 'age': 22}, {'name': 'C', 'age': 27}] by age ascending.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-083 | Predicted: backup | Domain: Arithmetic ---
+  Prompt: Find the greatest common divisor (GCD) and least common multiple (LCM) of 4,568 and 9,852.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-084 | Predicted: backup | Domain: String Manipulation ---
+  Prompt: Check if the string 'A man, a plan, a canal: Panama' is a palindrome ignoring spaces and punctuation.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-085 | Predicted: backup | Domain: Numerical Calculus ---
+  Prompt: Compute numerical integral approximation of f(x) = x^3 + 2x^2 from x=0 to x=5 using Simpson's rule with 100 subintervals
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-086 | Predicted: backup | Domain: Financial Metrics ---
+  Prompt: Given daily stock prices [100, 102, 98, 105, 110, 108, 115], calculate daily percentage returns and max drawdown.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-087 | Predicted: backup | Domain: Financial Math ---
+  Prompt: Calculate the present value of a cash flow stream of $500 per year for 10 years at a discount rate of 6%.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-088 | Predicted: backup | Domain: Security & Randomness ---
+  Prompt: Generate a cryptographically secure random 16-character password with uppercase, lowercase, digits, and special symbols.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-089 | Predicted: backup | Domain: Number Theory ---
+  Prompt: Find all prime factors of the integer 1,234,567,890.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-090 | Predicted: backup | Domain: Statistical Analysis ---
+  Prompt: Compute the Pearson correlation coefficient between x = [12, 15, 18, 22, 30] and y = [20, 24, 29, 37, 52].
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-091 | Predicted: backup | Domain: Text Analytics ---
+  Prompt: Calculate the total word count, character count (without spaces), and average word length for a given text block.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-092 | Predicted: backup | Domain: Linear Systems ---
+  Prompt: Solve the system of linear equations 2x + 3y = 12 and 5x - 2y = 11 for x and y.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-093 | Predicted: backup | Domain: Descriptive Statistics ---
+  Prompt: Calculate the 95th percentile of the array [12, 24, 35, 41, 58, 63, 77, 82, 89, 91, 95, 98, 102, 110].
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-094 | Predicted: backup | Domain: Date Processing ---
+  Prompt: Calculate the exact number of business days (excluding weekends) between 2026-01-01 and 2026-12-31.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-095 | Predicted: backup | Domain: Cryptography ---
+  Prompt: Compute the SHA-256 hash digest of the string 'agent_eval_test_prompt_2026'.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-096 | Predicted: backup | Domain: Geometry ---
+  Prompt: Calculate the area of a triangle with side lengths a = 13, b = 14, c = 15 using Heron's formula.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-097 | Predicted: backup | Domain: Regex Filtering ---
+  Prompt: Filter a list of email strings ['test@gmail.com', 'invalid-email', 'user@domain.org'] using regex to keep valid ones.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-098 | Predicted: backup | Domain: Recurrence Relations ---
+  Prompt: Calculate the 10th term of a sequence defined by a_n = 2 * a_{n-1} + 3 with a_1 = 1.
+  Raw LLM Response (first 300 chars):
+  
+
+--- EVAL-099 | Predicted: backup | Domain: Data Reshaping ---
+  Prompt: Reshape a flat list of 9 elements [1, 2, 3, 4, 5, 6, 7, 8, 9] into a 3x3 two-dimensional matrix.
+  Raw LLM Response (first 300 chars):
+  

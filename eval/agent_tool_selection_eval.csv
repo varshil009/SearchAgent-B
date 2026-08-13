@@ -1,0 +1,100 @@
+id,prompt,ground_truth_tool,domain_category,selection_rationale
+EVAL-001,What is the current stock price of Apple (AAPL) today?,web_search,Finance & Markets,Requires real-time market data.
+EVAL-002,What are the top headlines on TechCrunch right now?,web_search,Current Events,Requires real-time news retrieval.
+EVAL-003,What is the live exchange rate from USD to EUR right now?,web_search,Finance & Markets,Requires up-to-the-minute currency exchange rates.
+EVAL-004,What is today's weather forecast for San Francisco?,web_search,Weather & Environment,Requires real-time localized weather updates.
+EVAL-005,Who won the latest English Premier League match played yesterday?,web_search,Sports,Requires recent sports match results.
+EVAL-006,Are there active traffic delays on the Golden Gate Bridge right now?,web_search,Local & Traffic,Requires live traffic status.
+EVAL-007,What are the showtimes for 'Dune: Part Two' near downtown Seattle tonight?,web_search,Entertainment,Requires current movie schedules and local venues.
+EVAL-008,What is the latest stable release version of Python 3?,web_search,Software & Tech,Requires current software version information.
+EVAL-009,Did the Federal Reserve change interest rates in their most recent meeting?,web_search,Finance & Policy,Requires recent economic policy news.
+EVAL-010,"What are the opening hours of the main post office in Austin, TX today?",web_search,Local Services,Requires dynamic local business hours.
+EVAL-011,What is the current price of Bitcoin in USD right now?,web_search,Finance & Crypto,Requires real-time cryptocurrency pricing.
+EVAL-012,Are there any active flight delays at JFK airport right now?,web_search,Travel & Aviation,Requires live airport and flight tracking data.
+EVAL-013,What is the live score of the ongoing NBA finals game?,web_search,Sports,Requires real-time sports score tracking.
+EVAL-014,What are the trending topics on Twitter/X today?,web_search,Social Media Trends,Requires real-time social media trend monitoring.
+EVAL-015,What are the top trending movies on Netflix in the US this week?,web_search,Entertainment,Requires weekly updated streaming platform rankings.
+EVAL-016,Did SpaceX conduct a Starship test flight in the last 48 hours?,web_search,Aerospace & News,Requires recent news updates on space missions.
+EVAL-017,What is the average gas price in California today?,web_search,Energy & Economy,Requires daily dynamic consumer price data.
+EVAL-018,What are the latest API release notes published by OpenAI this week?,web_search,Software & AI,Requires recent technical announcement updates.
+EVAL-019,What were the winning numbers for the latest Powerball lottery draw?,web_search,Lottery & Games,Requires recent lottery draw results.
+EVAL-020,"Are there any severe weather warnings currently active for Miami, Florida?",web_search,Weather & Safety,Requires live meteorological alert updates.
+EVAL-021,What is the current standing of the UEFA Champions League group stage today?,web_search,Sports,Requires current sports league standings.
+EVAL-022,What is the latest flu activity update reported by the CDC this week?,web_search,Public Health,Requires recent public health surveillance reports.
+EVAL-023,What are today's lead stories on the BBC News homepage?,web_search,Global News,Requires live news homepage scraping/search.
+EVAL-024,Is GitHub currently experiencing an outage or operational issues right now?,web_search,Tech Status,Requires real-time service health/outage checking.
+EVAL-025,What is the current average interest rate for a 30-year fixed mortgage today?,web_search,Real Estate & Finance,Requires current mortgage rate updates.
+EVAL-026,What new hardware was announced at the most recent Google I/O event?,web_search,Tech Events,Requires recent event announcements.
+EVAL-027,What is the current live score of the India vs Australia cricket match?,web_search,Sports,Requires live match scores.
+EVAL-028,What are today's major headlines regarding global trade tariffs?,web_search,Global Trade & News,Requires current political and trade news.
+EVAL-029,Is the NYC Subway L train operating with delays right now?,web_search,Public Transit,Requires real-time transit status updates.
+EVAL-030,What is the Air Quality Index (AQI) in New Delhi right now?,web_search,Environment,Requires real-time atmospheric sensor data.
+EVAL-031,What changes were included in the patch notes released for Cyberpunk 2077 today?,web_search,Gaming News,Requires recent gaming patch note updates.
+EVAL-032,What are the top search queries on Google Trends in the US today?,web_search,Search Trends,Requires current search trend analytics.
+EVAL-033,What are the current average transaction gas fees on Ethereum right now?,web_search,Crypto & Blockchain,Requires live blockchain network metric monitoring.
+EVAL-034,What is the history and origin of the Renaissance movement in Europe?,wikipedia_search,History & Art,Requires encyclopedic historical overview.
+EVAL-035,Can you provide an overview of Albert Einstein's theory of general relativity?,wikipedia_search,Physics & Science,Requires established scientific conceptual summary.
+EVAL-036,Who was Julius Caesar and what were the events leading to his assassination in 44 BC?,wikipedia_search,Ancient History,Requires historical biographical profile.
+EVAL-037,What are the biological characteristics and taxonomy of the Giant Panda?,wikipedia_search,Zoology & Biology,Requires taxonomy and biological encyclopedic reference.
+EVAL-038,What were the primary geopolitical causes and consequences of the Treaty of Versailles in 1919?,wikipedia_search,Modern History,Requires historical treaty overview.
+EVAL-039,What is the architectural design and structural history of the Eiffel Tower?,wikipedia_search,Architecture & History,Requires monument history and structural details.
+EVAL-040,"Provide a summary of the plot, characters, and major themes of Herman Melville's 'Moby-Dick'.",wikipedia_search,Literature,Requires literary analysis and summary.
+EVAL-041,What are the key biological functions and structure of human mitochondria?,wikipedia_search,Cellular Biology,Requires established biological science facts.
+EVAL-042,What is the geological history and tectonic formation of the Grand Canyon?,wikipedia_search,Geology & Geography,Requires geological formation knowledge.
+EVAL-043,Explain the history and economic significance of the ancient Silk Road trading network.,wikipedia_search,World History,Requires historical trade route overview.
+EVAL-044,Who was Marie Curie and what were her major scientific contributions to radioactivity?,wikipedia_search,Scientific Biography,Requires historical scientist biography.
+EVAL-045,"What is the origin, rules, and history of the ancient Olympic Games in Greece?",wikipedia_search,Sports History,Requires historical sports overview.
+EVAL-046,"What is the geographical profile, climate, and biodiversity of the Amazon Rainforest?",wikipedia_search,Geography & Ecology,Requires geographical reference facts.
+EVAL-047,"Explain the chemical discovery, structure, and medical impact of Penicillin.",wikipedia_search,Pharmacology & History,Requires medical history and chemistry facts.
+EVAL-048,What was the Manhattan Project and what role did J. Robert Oppenheimer play?,wikipedia_search,20th Century History,Requires historical research program background.
+EVAL-049,Describe the main philosophical principles of Stoicism founded by Zeno of Citium.,wikipedia_search,Philosophy,Requires philosophical concepts overview.
+EVAL-050,What was the history and organizational structure of the League of Nations?,wikipedia_search,Political History,Requires international organization history.
+EVAL-051,Provide an overview of the Apollo 11 moon landing mission and its crew members.,wikipedia_search,Space Exploration,Requires historical space mission summary.
+EVAL-052,What is the history of the Great Wall of China across different dynasties?,wikipedia_search,World Heritage,Requires multi-dynasty architectural history.
+EVAL-053,What are the core postulates of quantum mechanics according to the Copenhagen interpretation?,wikipedia_search,Theoretical Physics,Requires established physics theory concepts.
+EVAL-054,Who was Wolfgang Amadeus Mozart and what are his most famous compositions?,wikipedia_search,Musicology & History,Requires classical composer biography.
+EVAL-055,What is the ecological structure and geographical extent of the Great Barrier Reef?,wikipedia_search,Marine Biology,Requires geographical and ecological reference.
+EVAL-056,"Describe the history, origins, and basic rules of the game of Chess.",wikipedia_search,Board Games History,Requires historical game overview.
+EVAL-057,What was the Byzantine Empire and how did the Fall of Constantinople occur in 1453?,wikipedia_search,Medieval History,Requires empire history and major siege summary.
+EVAL-058,"What are the core teachings, Four Noble Truths, and history of Buddhism?",wikipedia_search,Religious Studies,Requires religious philosophy overview.
+EVAL-059,Who was Isaac Newton and what are his three laws of motion?,wikipedia_search,Classical Mechanics,Requires fundamental physics principles overview.
+EVAL-060,What is the history and significance of the Rosetta Stone in deciphering hieroglyphs?,wikipedia_search,Archaeology,Requires historical artifact background.
+EVAL-061,Describe the political system and history of the Roman Republic before the Empire.,wikipedia_search,Ancient History,Requires historical political system summary.
+EVAL-062,What is the biochemical mechanism of photosynthesis in plants?,wikipedia_search,Biochemistry,Requires scientific process explanation.
+EVAL-063,"What is the narrative structure, background, and summary of Dante's 'Divine Comedy'?",wikipedia_search,Classic Literature,Requires literary narrative summary.
+EVAL-064,Who was Ada Lovelace and why is she recognized as the first computer programmer?,wikipedia_search,Computer History,Requires historical computing biography.
+EVAL-065,"What is the geography, biodiversity, and human settlement history of Madagascar?",wikipedia_search,Geography,Requires encyclopedic country profile.
+EVAL-066,What is the history and scientific organization of the periodic table by Dmitri Mendeleev?,wikipedia_search,Chemistry History,Requires scientific development history.
+EVAL-067,"Calculate the compound interest on a $10,000 principal at 5.5% annual interest compounded monthly over 15 years.",python_repl,Financial Calculation,Requires precise compound interest formula execution.
+EVAL-068,"Given the list [14, 28, 35, 42, 99, 105, 210], calculate its population standard deviation and variance.",python_repl,Statistics,Requires exact statistical computation on data array.
+EVAL-069,"Determine whether the integer 104,729 is a prime number.",python_repl,Number Theory,Requires algorithmic primality test execution.
+EVAL-070,"Compute the matrix product of A = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] and B = [[9, 8, 7], [6, 5, 4], [3, 2, 1]].",python_repl,Linear Algebra,Requires exact matrix multiplication calculation.
+EVAL-071,"Calculate the exact date and UTC timestamp 10,000 hours from '2026-08-13 12:00:00'.",python_repl,Datetime Arithmetic,Requires exact date-time offset calculation.
+EVAL-072,Reverse the string 'Supercalifragilisticexpialidocious' and count the exact frequency of each vowel.,python_repl,String Processing,Requires programmatic string manipulation and counting.
+EVAL-073,Solve the quadratic equation 3x^2 - 14x + 8 = 0 for its exact roots.,python_repl,Algebra,Requires root-finding computation via quadratic formula or solver.
+EVAL-074,"Parse the JSON string '{""users"": [{""name"": ""Alice"", ""score"": 88}, {""name"": ""Bob"", ""score"": 95}]}' and compute average score.",python_repl,Data Parsing,Requires JSON parsing and arithmetic mean computation.
+EVAL-075,Generate the first 30 terms of the Fibonacci sequence and find the sum of all even numbers among them.,python_repl,Sequence Algorithms,Requires programmatic sequence generation and filtering.
+EVAL-076,"Compute the determinant of the 4x4 matrix [[4, 3, 2, 1], [3, 2, 1, 4], [2, 1, 4, 3], [1, 4, 3, 2]].",python_repl,Linear Algebra,Requires exact higher-dimension matrix determinant computation.
+EVAL-077,"Convert 450 degrees Fahrenheit to Celsius and Kelvin, formatted to 4 decimal places.",python_repl,Unit Conversion,Requires multi-step mathematical unit conversion.
+EVAL-078,"Simulate rolling two 6-sided dice 100,000 times and output the empirical probability of getting a sum of 7.",python_repl,Monte Carlo Simulation,Requires random simulation execution.
+EVAL-079,Find all unique words in 'The quick brown fox jumps over the lazy dog' sorted alphabetically by word length.,python_repl,Text Processing,"Requires word splitting, deduplication, and custom sorting."
+EVAL-080,Compute 50 factorial (50!) and count how many trailing zeros it contains.,python_repl,Combinatorics & Math,Requires exact large-integer arithmetic and trailing zero counting.
+EVAL-081,"Calculate the Euclidean distance and Cosine similarity between vectors v1 = [1, 3, 5, 7, 9] and v2 = [2, 4, 6, 8, 10].",python_repl,Vector Mathematics,Requires exact vector metric calculations.
+EVAL-082,"Sort a list of dicts [{'name': 'A', 'age': 30}, {'name': 'B', 'age': 22}, {'name': 'C', 'age': 27}] by age ascending.",python_repl,Data Structures,Requires programmatic sorting of structured objects.
+EVAL-083,"Find the greatest common divisor (GCD) and least common multiple (LCM) of 4,568 and 9,852.",python_repl,Arithmetic,Requires Euclidean algorithm for GCD and LCM calculation.
+EVAL-084,"Check if the string 'A man, a plan, a canal: Panama' is a palindrome ignoring spaces and punctuation.",python_repl,String Manipulation,Requires regex cleaning and palindrome condition check.
+EVAL-085,Compute numerical integral approximation of f(x) = x^3 + 2x^2 from x=0 to x=5 using Simpson's rule with 100 subintervals.,python_repl,Numerical Calculus,Requires numeric quadrature implementation.
+EVAL-086,"Given daily stock prices [100, 102, 98, 105, 110, 108, 115], calculate daily percentage returns and max drawdown.",python_repl,Financial Metrics,Requires time-series return calculation and drawdown analysis.
+EVAL-087,Calculate the present value of a cash flow stream of $500 per year for 10 years at a discount rate of 6%.,python_repl,Financial Math,Requires discounted cash flow (DCF) formula computation.
+EVAL-088,"Generate a cryptographically secure random 16-character password with uppercase, lowercase, digits, and special symbols.",python_repl,Security & Randomness,Requires secure string generation logic.
+EVAL-089,"Find all prime factors of the integer 1,234,567,890.",python_repl,Number Theory,Requires prime factorization algorithm execution.
+EVAL-090,"Compute the Pearson correlation coefficient between x = [12, 15, 18, 22, 30] and y = [20, 24, 29, 37, 52].",python_repl,Statistical Analysis,Requires correlation formula execution.
+EVAL-091,"Calculate the total word count, character count (without spaces), and average word length for a given text block.",python_repl,Text Analytics,Requires programmatic string metric analysis.
+EVAL-092,Solve the system of linear equations 2x + 3y = 12 and 5x - 2y = 11 for x and y.,python_repl,Linear Systems,Requires system equation solving / linear algebra.
+EVAL-093,"Calculate the 95th percentile of the array [12, 24, 35, 41, 58, 63, 77, 82, 89, 91, 95, 98, 102, 110].",python_repl,Descriptive Statistics,Requires percentile calculation algorithm.
+EVAL-094,Calculate the exact number of business days (excluding weekends) between 2026-01-01 and 2026-12-31.,python_repl,Date Processing,Requires business day date arithmetic.
+EVAL-095,Compute the SHA-256 hash digest of the string 'agent_eval_test_prompt_2026'.,python_repl,Cryptography,Requires hashing function execution.
+EVAL-096,"Calculate the area of a triangle with side lengths a = 13, b = 14, c = 15 using Heron's formula.",python_repl,Geometry,Requires square root and semi-perimeter formula computation.
+EVAL-097,"Filter a list of email strings ['test@gmail.com', 'invalid-email', 'user@domain.org'] using regex to keep valid ones.",python_repl,Regex Filtering,Requires regular expression pattern validation.
+EVAL-098,Calculate the 10th term of a sequence defined by a_n = 2 * a_{n-1} + 3 with a_1 = 1.,python_repl,Recurrence Relations,Requires recursive or iterative sequence calculation.
+EVAL-099,"Reshape a flat list of 9 elements [1, 2, 3, 4, 5, 6, 7, 8, 9] into a 3x3 two-dimensional matrix.",python_repl,Data Reshaping,Requires array restructuring logic.
