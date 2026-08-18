@@ -1,6 +1,7 @@
 from services.groq import GroqClient
 from services.app_logger import get_app_logger
 from langchain_core.messages import HumanMessage
+from .think_tag import _strip_think_tags as filterThinkTags
 from .agent_state import AgentState
 
 logger = get_app_logger()
@@ -44,6 +45,7 @@ class NodeTitleGen:
             )
             title = response.strip().strip('"').strip("'")
             if title:
+                title = filterThinkTags(title)
                 logger.info("Generated title: %s", title)
                 return {"conversation_title": title}
         except Exception as e:

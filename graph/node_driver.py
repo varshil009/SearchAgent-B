@@ -172,6 +172,9 @@ class NodeDriver:
 
     @staticmethod
     def _extract_final(response: str) -> str | None:
+        # Reasoning models may prepend a completed <think> block before the
+        # routing envelope. Remove it only for parsing; raw responses are kept.
+        response = re.sub(r"<think>[\s\S]*?</think>", "", response, flags=re.IGNORECASE)
         match = re.fullmatch(r"\s*<final>\s*(.*?)\s*</final>\s*", response, re.DOTALL)
         if not match:
             return None
@@ -180,6 +183,7 @@ class NodeDriver:
 
     @staticmethod
     def _extract_tool_request(response: str) -> dict[str, str] | None:
+        response = re.sub(r"<think>[\s\S]*?</think>", "", response, flags=re.IGNORECASE)
         match = re.fullmatch(r"\s*<tool>\s*(.*?)\s*</tool>\s*", response, re.DOTALL)
         if not match:
             return None

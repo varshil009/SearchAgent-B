@@ -1,5 +1,7 @@
 from services.groq import GroqClient
 from services.app_logger import get_app_logger
+from langchain_core.messages import HumanMessage
+from .think_tag import _strip_think_tags as filterThinkTags
 
 from .agent_state import AgentState
 
@@ -32,17 +34,15 @@ class NodeMemoryUpdater:
             Previous summary:
             {previous_memory}
 
-            Recent Exchange Transcript:
-            {transcript}
-
             Keep only concise, useful highlights: user preferences, facts they shared,
             decisions made, open tasks, and important context for future replies.
             Do not include tool output, filler, or a transcript. Return only the updated
             summary, with no heading or commentary. Never return an empty response.
         """
         
-        # Pass an empty list (or a clean single user message) so Groq sees this as a fresh instruction task
-        memory = self.llm.generate_response([], prompt)
+        # Send the conversation separately as a user message. Qwen requires a
+        # user turn and the system prompt remains focused on summary rules.
+        memory = self.llm.generate_response([HumanMessage(content=transcript)], prompt)
         
         if not memory or not memory.strip():
             memory = (
@@ -51,6 +51,9 @@ class NodeMemoryUpdater:
                 else "No durable memory yet."
             )
             logger.warning("Memory LLM returned an empty response; preserving prior memory.")
+
+        else:
+            memory = filterThinkTags(memory)
 
         logger.info("Memory updater finished. New memory: %r", memory)
         return {"convo_memory": memory}
