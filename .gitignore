@@ -2,3 +2,5 @@
 supabase_url/
 *.log
 *.log.txt
+__pycache__/
+*.pyc
