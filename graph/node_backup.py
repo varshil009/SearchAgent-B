@@ -1,6 +1,6 @@
 from langchain_core.messages import AIMessage
 
-from services.groq import GroqClient
+from services.groqx import GroqClient
 from services.app_logger import get_app_logger
 from .agent_state import AgentState
 from .node_driver import NodeDriver

@@ -1,0 +1,66 @@
+
+===============================================================
+Model Name :canopylabs/orpheus-arabic-saudi
+===============================================================
+I
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+===============================================================
+Model Name :canopylabs/orpheus-v1-english
+===============================================================
+’
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+===============================================================
+Model Name :groq/compound
+===============================================================
+m
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+===============================================================
+Model Name :groq/compound-mini
+===============================================================
+ 
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+===============================================================
+Model Name :meta-llama/llama-prompt-guard-2-22m
+===============================================================
+d
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+===============================================================
+Model Name :meta-llama/llama-prompt-guard-2-86m
+===============================================================
+o
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+===============================================================
+Model Name :openai/gpt-oss-120b
+===============================================================
+i
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+===============================================================
+Model Name :openai/gpt-oss-20b
+===============================================================
+n
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+===============================================================
+Model Name :openai/gpt-oss-safeguard-20b
+===============================================================
+g
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+===============================================================
+Model Name :whisper-large-v3
+===============================================================
+ 
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+===============================================================
+Model Name :whisper-large-v3-turbo
+===============================================================
+g
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

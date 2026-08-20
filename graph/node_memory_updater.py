@@ -1,4 +1,4 @@
-from services.groq import GroqClient
+from services.groqx import GroqClient
 from services.app_logger import get_app_logger
 from langchain_core.messages import HumanMessage
 from .think_tag import _strip_think_tags as filterThinkTags
